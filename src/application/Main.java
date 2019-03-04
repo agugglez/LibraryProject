@@ -34,6 +34,7 @@ public class Main extends Application {
 
 		//NEW CODE
 		System.out.println("agugglez did it");
+		System.out.println("Don did it");
 		// Add some sample data
 		personData.add(new Person("Hans", "Muster"));
 		personData.add(new Person("Ruth", "Mueller"));
