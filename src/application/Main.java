@@ -30,6 +30,10 @@ public class Main extends Application {
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 
 	public Main() {
+		//NEW CODE
+
+		//NEW CODE
+		System.out.println("agugglez did it");
 		// Add some sample data
 		personData.add(new Person("Hans", "Muster"));
 		personData.add(new Person("Ruth", "Mueller"));
