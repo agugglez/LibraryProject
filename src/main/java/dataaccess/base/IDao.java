@@ -10,4 +10,8 @@ public interface IDao<T, ID> {
 	void save(T t);
 
 	boolean delete(ID id);
+
+	boolean deleteEntity(T t);
+
+	void insert(T t);
 }
