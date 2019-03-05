@@ -1,4 +1,4 @@
-package storage;
+package dataaccess.storage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,25 +11,25 @@ import model.Member;
 public class Library implements Serializable {
 
 	public List<Member> getMembers() {
-		return Collections.unmodifiableList(members);
+		return Collections.unmodifiableList(member);
 	}
 
 	public List<Book> getBooks() {
-		return Collections.unmodifiableList(books);
+		return Collections.unmodifiableList(book);
 	}
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -6824278077021225904L;
-	List<Member> members;
-	List<Book> books;
+	List<Member> member;
+	List<Book> book;
 
-	public Library() {
+	private Library() {
 		super();
 
-		members = new ArrayList<>();
-		books = new ArrayList<>();
+		member = new ArrayList<>();
+		book = new ArrayList<>();
 	}
 
 }

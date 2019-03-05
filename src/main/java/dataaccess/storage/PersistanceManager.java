@@ -1,4 +1,4 @@
-package storage;
+package dataaccess.storage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,14 +12,19 @@ public class PersistanceManager {
 
 	public static final String OUTPUT_DIR = // System.getProperty("user.dir") +
 			"~/library.bin";
+	private static Library library = (Library) readData();
 
-	public void saveData(Object obj) {
+	public static Library getLibrary() {
+		return library;
+	}
+
+	public static void saveData() {
 		try {
 
 			// Store Serialized User Object in File
 			FileOutputStream fileOutputStream = new FileOutputStream(OUTPUT_DIR);
 			ObjectOutputStream output = new ObjectOutputStream(fileOutputStream);
-			output.writeObject(obj);
+			output.writeObject(getLibrary());
 
 			output.close();
 
@@ -31,7 +36,7 @@ public class PersistanceManager {
 
 	}
 
-	public Object readData() {
+	public static Object readData() {
 		try {
 
 			// Read from the stored file
