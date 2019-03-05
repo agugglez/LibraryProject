@@ -1,10 +1,12 @@
 package edu.mum.library.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.model.Person;
+import edu.mum.library.service.PersonService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -18,13 +20,15 @@ public class PersonEditDialogController extends BaseFxModalController {
 	@Override
 	public void postInit() {
 		this.person = (Person) this.getCurrentStage().getUserData();
-		firstNameField.setText(person.getFirstName());
-		lastNameField.setText(person.getLastName());
-		streetField.setText(person.getStreet());
-		postalCodeField.setText(Integer.toString(person.getPostalCode()));
-		cityField.setText(person.getCity());
-		birthdayField.setText(DateUtil.format(person.getBirthday()));
-		birthdayField.setPromptText("dd.mm.yyyy");
+		if (person != null) {
+			firstNameField.setText(person.getFirstName());
+			lastNameField.setText(person.getLastName());
+			streetField.setText(person.getStreet());
+			postalCodeField.setText(Integer.toString(person.getPostalCode()));
+			cityField.setText(person.getCity());
+			birthdayField.setText(DateUtil.format(person.getBirthday()));
+			birthdayField.setPromptText("dd.mm.yyyy");
+		}
 	}
 
 	@FXML
@@ -41,6 +45,8 @@ public class PersonEditDialogController extends BaseFxModalController {
 	private TextField birthdayField;
 
 	private Person person;
+	@Autowired
+	private PersonService personService;
 	private boolean okClicked = false;
 
 	/**
@@ -50,23 +56,6 @@ public class PersonEditDialogController extends BaseFxModalController {
 	@FXML
 	private void initialize() {
 
-	}
-
-	/**
-	 * Sets the person to be edited in the dialog.
-	 *
-	 * @param person
-	 */
-	public void setPerson(Person person) {
-		this.person = person;
-
-		firstNameField.setText(person.getFirstName());
-		lastNameField.setText(person.getLastName());
-		streetField.setText(person.getStreet());
-		postalCodeField.setText(Integer.toString(person.getPostalCode()));
-		cityField.setText(person.getCity());
-		birthdayField.setText(DateUtil.format(person.getBirthday()));
-		birthdayField.setPromptText("dd.mm.yyyy");
 	}
 
 	/**
@@ -84,13 +73,21 @@ public class PersonEditDialogController extends BaseFxModalController {
 	@FXML
 	private void handleOk() {
 		if (isInputValid()) {
-			person.setFirstName(firstNameField.getText());
-			person.setLastName(lastNameField.getText());
-			person.setStreet(streetField.getText());
-			person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-			person.setCity(cityField.getText());
-			person.setBirthday(DateUtil.parse(birthdayField.getText()));
-
+			if (person != null) {
+				person.setFirstName(firstNameField.getText());
+				person.setLastName(lastNameField.getText());
+				person.setStreet(streetField.getText());
+				person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
+				person.setCity(cityField.getText());
+				person.setBirthday(DateUtil.parse(birthdayField.getText()));
+			} else {
+				Person person = new Person(firstNameField.getText(), lastNameField.getText());
+				person.setStreet(streetField.getText());
+				person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
+				person.setCity(cityField.getText());
+				person.setBirthday(DateUtil.parse(birthdayField.getText()));
+				personService.addPerson(person);
+			}
 			okClicked = true;
 			this.getCurrentStage().close();
 		}

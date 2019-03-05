@@ -140,8 +140,11 @@ public class PersonOverviewController extends BaseFxController {
 	 */
 	@FXML
 	private void handleNewPerson() {
-		Person tempPerson = new Person();
-		libraryUiManager.showPersonEditDialog(tempPerson);
+		Person tempPerson = null;//new Person();
+		if(libraryUiManager.showPersonEditDialog(tempPerson))
+		{
+			personTable.setItems(FXCollections.observableArrayList(personService.getAllPerson()));
+		}
 	}
 
 	/**
