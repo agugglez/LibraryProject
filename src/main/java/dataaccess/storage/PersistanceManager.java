@@ -7,14 +7,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
+import java.util.List;
+
+import dataaccess.base.BaseDao;
 
 public class PersistanceManager {
 
 	public static final String OUTPUT_DIR = // System.getProperty("user.dir") +
 			"~/library.bin";
-	private static Library library = (Library) readData();
+	private static Database library = (Database) readData();
 
-	public static Library getLibrary() {
+	public static Database getLibrary() {
 		return library;
 	}
 
@@ -58,4 +62,19 @@ public class PersistanceManager {
 		return null;
 	}
 
+	public static <T, ID> List<T> getEntityAllData(BaseDao<T, ID> dao) {
+		List<T> allData = readField(getLibrary(), dao.getTableName());
+		return allData;
+	}
+
+	private static <T> T readField(Object obj, String name) {
+		Field f;
+		try {
+			f = obj.getClass().getDeclaredField(name);
+			f.setAccessible(true);
+			return (T) f.get(obj); // IllegalAccessException
+		} catch (Exception e) {
+			throw new RuntimeException("fail to read Field", e);
+		}
+	}
 }

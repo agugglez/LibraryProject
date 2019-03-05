@@ -8,7 +8,7 @@ import java.util.List;
 import model.Book;
 import model.Member;
 
-public class Library implements Serializable {
+public class Database implements Serializable {
 
 	public List<Member> getMembers() {
 		return Collections.unmodifiableList(member);
@@ -25,7 +25,7 @@ public class Library implements Serializable {
 	List<Member> member;
 	List<Book> book;
 
-	private Library() {
+	private Database() {
 		super();
 
 		member = new ArrayList<>();

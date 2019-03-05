@@ -1,52 +1,42 @@
 package dataaccess.base;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import dataaccess.storage.PersistanceManager;
 
 public abstract class BaseDao<T, ID> implements IDao<T, ID> {
 
-	abstract protected String getTableName();
+	abstract public String getTableName();
 
-	abstract protected String getPrimaryKeyName();
+	abstract protected Supplier<ID> getPrimaryKeySupplier(T e);
 
-	private List<T> getEntityAllData() {
-		List<T> allData = (List<T>) readField(PersistanceManager.getLibrary(), getTableName());
-		return allData;
-	}
-
-	private <T> T readField(Object obj, String name) {
-		Field f;
-		try {
-			f = obj.getClass().getDeclaredField(name);
-			f.setAccessible(true);
-			return (T) f.get(obj); // IllegalAccessException
-		} catch (Exception e) {
-			throw new RuntimeException("fail to read Field", e);
-		}
+	protected ID getPrimaryKeyValue(T e) {
+		return getPrimaryKeySupplier(e).get();
 	}
 
 	@Override
 	public List<T> getAll() {
-		return getEntityAllData();
+		return secretGetAll();
+	}
+
+	private List<T> secretGetAll() {
+		return PersistanceManager.getEntityAllData(this);
 	}
 
 	@Override
 	public T readById(ID id) {
-		Optional<T> find = getEntityAllData().stream().filter(e -> id.equals(readField(e, getPrimaryKeyName())))
-				.findAny();
+		Optional<T> find = secretGetAll().stream().filter(e -> id.equals(getPrimaryKeyValue(e))).findAny();
 		return find.isPresent() ? find.get() : null;
 	}
 
 	@Override
 	public void save(T t) {
-		ID id = readField(t, this.getPrimaryKeyName());
-		Optional<T> find = getEntityAllData().stream().filter(e -> id.equals(readField(e, getPrimaryKeyName())))
-				.findAny();
+		ID id = getPrimaryKeyValue(t);
+		Optional<T> find = secretGetAll().stream().filter(e -> id.equals(getPrimaryKeyValue(e))).findAny();
 		if (!find.isPresent()) {
-			getEntityAllData().add(t);
+			secretGetAll().add(t);
 
 		}
 		PersistanceManager.saveData();
@@ -54,10 +44,9 @@ public abstract class BaseDao<T, ID> implements IDao<T, ID> {
 
 	@Override
 	public boolean delete(ID id) {
-		Optional<T> find = getEntityAllData().stream().filter(e -> id.equals(readField(e, getPrimaryKeyName())))
-				.findAny();
+		Optional<T> find = secretGetAll().stream().filter(e -> id.equals(getPrimaryKeyValue(e))).findAny();
 		if (find.isPresent()) {
-			getEntityAllData().remove(find.get());
+			secretGetAll().remove(find.get());
 			return true;
 		}
 		return false;
