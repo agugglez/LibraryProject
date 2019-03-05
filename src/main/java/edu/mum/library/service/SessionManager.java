@@ -1,9 +1,9 @@
-package util;
+package edu.mum.library.service;
 
 import java.util.Arrays;
 import java.util.List;
 
-import model.Staff;
+import edu.mum.library.model.Staff;
 
 public class SessionManager {
 

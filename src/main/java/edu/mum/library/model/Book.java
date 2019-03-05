@@ -1,10 +1,10 @@
-package model;
+package edu.mum.library.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.base.BaseEntityWithPrimaryKey;
+import edu.mum.library.model.base.BaseEntityWithPrimaryKey;
 
 public class Book extends BaseEntityWithPrimaryKey<String> {
 

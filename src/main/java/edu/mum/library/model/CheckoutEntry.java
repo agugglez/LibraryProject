@@ -1,8 +1,8 @@
-package model;
+package edu.mum.library.model;
 
 import java.time.LocalDate;
 
-import model.base.BaseEntity;
+import edu.mum.library.model.base.BaseEntity;
 
 public class CheckoutEntry extends BaseEntity {
 

@@ -1,9 +1,9 @@
-package dataaccess.base;
+package edu.mum.library.dataaccess.base;
 
 import java.util.Optional;
 
-import dataaccess.storage.PersistanceManager;
-import model.base.IPrimaryKeyGetter;
+import edu.mum.library.dataaccess.storage.PersistanceManager;
+import edu.mum.library.model.base.IPrimaryKeyGetter;
 
 public abstract class BaseDaoWithPrimaryKey<T extends IPrimaryKeyGetter<ID>, ID> extends BaseDao<T, ID> {
 

@@ -1,11 +1,11 @@
-package model;
+package edu.mum.library.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.base.BaseEntity;
+import edu.mum.library.model.base.BaseEntity;
 
 
 public class CheckoutRecord extends BaseEntity{

@@ -1,4 +1,4 @@
-package dataaccess.base;
+package edu.mum.library.dataaccess.base;
 
 import java.util.List;
 

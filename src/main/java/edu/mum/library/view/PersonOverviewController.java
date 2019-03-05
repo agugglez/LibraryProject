@@ -5,8 +5,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import edu.mum.library.model.Person;
-import edu.mum.library.service.PersonService;
+import edu.mum.library.modelbb.Person;
+import edu.mum.library.servicebb.PersonService;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

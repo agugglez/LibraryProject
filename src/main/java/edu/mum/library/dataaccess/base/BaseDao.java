@@ -1,9 +1,9 @@
-package dataaccess.base;
+package edu.mum.library.dataaccess.base;
 
 import java.util.List;
 import java.util.Optional;
 
-import dataaccess.storage.PersistanceManager;
+import edu.mum.library.dataaccess.storage.PersistanceManager;
 
 public abstract class BaseDao<T, ID> implements IDao<T, ID> {
 

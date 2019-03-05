@@ -5,13 +5,13 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import edu.mum.library.model.Person;
-import edu.mum.library.service.PersonService;
+import edu.mum.library.modelbb.Person;
+import edu.mum.library.servicebb.DateUtil;
+import edu.mum.library.servicebb.PersonService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import util.DateUtil;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)

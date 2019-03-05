@@ -1,4 +1,4 @@
-package model.base;
+package edu.mum.library.model.base;
 
 public abstract class BaseEntityWithPrimaryKey<ID> extends BaseEntity implements IPrimaryKeyGetter<ID> {
 

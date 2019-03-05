@@ -1,7 +1,7 @@
-package model;
+package edu.mum.library.model;
 
-import model.base.IPrimaryKeyGetter;
-import model.base.PrimaryKeyHelper;
+import edu.mum.library.model.base.IPrimaryKeyGetter;
+import edu.mum.library.model.base.PrimaryKeyHelper;
 
 public class Member extends Person implements IPrimaryKeyGetter<String> {
 
