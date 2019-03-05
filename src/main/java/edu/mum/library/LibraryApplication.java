@@ -9,13 +9,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import edu.mum.library.view.BaseFxController;
 import edu.mum.library.view.LibraryUiManager;
 import edu.mum.library.view.RootController;
+import edu.mum.library.view.UserObjectForView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -41,10 +41,10 @@ public class LibraryApplication extends Application {
 	}
 
 	public <T extends Parent> T importLayout(String resourcePath) {
-		return importLayout(resourcePath, null);
+		return importLayout(resourcePath, null, null);
 	}
 
-	public <T extends Parent> T importLayout(String resourcePath, Stage stage) {
+	public <T extends Parent> T importLayout(String resourcePath, Stage stage, Object param) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
 		loader.setControllerFactory(context::getBean);
 		try {
@@ -52,7 +52,7 @@ public class LibraryApplication extends Application {
 			T result = loader.load();
 			if (stage != null) {
 				BaseFxController controller = (BaseFxController) loader.getController();
-				stage.setUserData(controller);
+				stage.setUserData(new UserObjectForView(controller, param));
 				controller.setCurrentStage(stage);
 				stage.setOnHidden(e -> controller.windowClose());
 				controller.postInit();
@@ -75,7 +75,7 @@ public class LibraryApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		BorderPane rootLayout = importLayout("/edu/mum/library/view/RootLayout.fxml", primaryStage);
+		BorderPane rootLayout = importLayout("/edu/mum/library/view/RootLayout.fxml", primaryStage, null);
 
 		this.primaryStage = primaryStage;
 		context.getBean(LibraryApplication.class).primaryStage = this.primaryStage;
@@ -85,15 +85,16 @@ public class LibraryApplication extends Application {
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-//		AnchorPane personOverview = importLayout("/edu/mum/library/view/PersonOverview.fxml");
+		// AnchorPane personOverview =
+		// importLayout("/edu/mum/library/view/PersonOverview.fxml");
 
 		// Set person overview into the center of root layout.
-//		rootLayout.setCenter(personOverview);
+		// rootLayout.setCenter(personOverview);
 		LibraryUiManager uiManager = context.getBean(LibraryUiManager.class);
 		if (!uiManager.showLoginDialog()) {
 			Platform.exit();
 		} else {
-			((RootController) this.primaryStage.getUserData()).menuInit();
+			((RootController) ((UserObjectForView) this.primaryStage.getUserData()).getController()).menuInit();
 		}
 
 	}

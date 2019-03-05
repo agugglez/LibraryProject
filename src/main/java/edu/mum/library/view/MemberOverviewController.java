@@ -142,10 +142,10 @@ public class MemberOverviewController extends BaseFxController {
 	 */
 	@FXML
 	private void handleNewPerson() {
-//		Member tempPerson = null;// new Person();
-//		if (libraryUiManager.showPersonEditDialog(tempPerson)) {
-//			personTable.setItems(FXCollections.observableArrayList(personService.getAllPerson()));
-//		}
+		MemberDto tempPerson = null;// new Person();
+		if (libraryUiManager.showMemberEditDialog(tempPerson)) {
+			personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
+		}
 	}
 
 	/**

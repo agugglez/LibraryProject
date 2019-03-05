@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="356.0" prefWidth="582.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mum.library.view.PersonEditDialogController">
+<AnchorPane prefHeight="356.0" prefWidth="582.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mum.library.view.MemberEditDialogController">
    <children>
       <GridPane layoutX="6.0" layoutY="90.0" prefHeight="194.0" prefWidth="500.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="-5.0" AnchorPane.topAnchor="10.0">
         <columnConstraints>
@@ -38,11 +38,11 @@
             <TextField fx:id="streetField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="birthdayField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="Member Id" />
-            <TextField GridPane.columnIndex="1" />
+            <TextField fx:id="memberIdField" GridPane.columnIndex="1" />
             <Label text="State" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="stateField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Button layoutX="301.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleOk" text="OK" textOverrun="CLIP" AnchorPane.bottomAnchor="15.0">
