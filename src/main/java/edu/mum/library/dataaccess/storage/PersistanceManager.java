@@ -15,7 +15,7 @@ import edu.mum.library.dataaccess.base.BaseDao;
 public class PersistanceManager {
 
 	public static final String OUTPUT_DIR = // System.getProperty("user.dir") +
-			"~/library.bin";
+			"library.bin";
 	private static Database library = (Database) readDatabase();
 
 	public static Database getLibrary() {

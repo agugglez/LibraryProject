@@ -1,11 +1,13 @@
 package edu.mum.library.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.model.Address;
 import edu.mum.library.model.Member;
+import edu.mum.library.service.LibraryService;
 import edu.mum.library.servicebb.DateUtil;
 import edu.mum.library.view.dto.MemberDto;
 import javafx.fxml.FXML;
@@ -19,7 +21,7 @@ public class MemberEditDialogController extends BaseFxModalController {
 
 	@Override
 	public void postInit() {
-		this.person = (MemberDto) this.getCurrentStage().getUserData();
+		this.person = (MemberDto) ((UserObjectForView) this.getCurrentStage().getUserData()).getParameter();
 		if (person != null) {
 			memberIdField.setText(person.getMemberId());
 			firstNameField.setText(person.getFirstName());
@@ -54,10 +56,12 @@ public class MemberEditDialogController extends BaseFxModalController {
 	private MemberDto person;
 
 	private boolean okClicked = false;
+	@Autowired
+	private LibraryService libraryService;
 
 	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called after
+	 * the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
@@ -78,9 +82,9 @@ public class MemberEditDialogController extends BaseFxModalController {
 	 */
 	@FXML
 	private void handleOk() {
-		if (isInputValid()) {
+		if (true) {// isInputValid()
 			if (person != null) {
-//				person.setMemberId(memberIdField.getText());
+				// person.setMemberId(memberIdField.getText());
 				person.setFirstName(firstNameField.getText());
 				person.setLastName(lastNameField.getText());
 				person.setStreet(streetField.getText());
@@ -89,14 +93,19 @@ public class MemberEditDialogController extends BaseFxModalController {
 				person.setPhoneNumber(phoneNumberField.getText());
 				person.setState(stateField.getText());
 			} else {
-				Member person = new Member(memberIdField.getText(), firstNameField.getText(),lastNameField.getText(),phoneNumberField.getText());
-				person.setPersonAddress(new Address(streetField.getText(), cityField.getText(), stateField.getText(), postalCodeField.getText()));
+				Member member = new Member(memberIdField.getText(), firstNameField.getText(), lastNameField.getText(),
+						phoneNumberField.getText());
+				member.setPersonAddress(new Address(streetField.getText(), cityField.getText(), stateField.getText(),
+						postalCodeField.getText()));
+
 				// person.setLastName();
 				// person.setStreet(streetField.getText());
 				// person.setZipcode(postalCodeField.getText());
 				// person.setCity(cityField.getText());
 				// person.setPhoneNumber();
 				// person.setState(stateField.getText());
+				libraryService.addMember(member);
+
 			}
 			okClicked = true;
 			this.getCurrentStage().close();
