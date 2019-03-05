@@ -1,8 +1,8 @@
 package model;
 
-import java.io.Serializable;
+import model.base.BaseEntityWithPrimaryKey;
 
-public class BookCopy implements Serializable {
+public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 
 	/**
 	 *
@@ -22,22 +22,6 @@ public class BookCopy implements Serializable {
 		this.copyNumber = copyNumber;
 		this.isAvailable = isAvailable;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BookCopy other = (BookCopy) obj;
-		if (copyNumber == null) {
-			if (other.copyNumber != null)
-				return false;
-		} else if (!copyNumber.equals(other.copyNumber))
-			return false;
-		return true;
-	}
 
 	public Book getBook() {
 		return originalBook;
@@ -51,16 +35,13 @@ public class BookCopy implements Serializable {
 		return copyNumber;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((copyNumber == null) ? 0 : copyNumber.hashCode());
-		return result;
-	}
 
 	public Boolean IsAvailable() {
 		return isAvailable;
+	}
+	@Override
+	public String getPrimaryKey() {
+		return getCopyNumber();
 	}
 
 }

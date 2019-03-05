@@ -1,14 +1,14 @@
 package model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import model.base.BaseEntity;
 
-public class CheckoutRecord implements Serializable{
+
+public class CheckoutRecord extends BaseEntity{
 
 	/**
 	 *
@@ -34,7 +34,7 @@ public class CheckoutRecord implements Serializable{
 	}
 
 	public void printCheckoutRecord(){
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 
 }

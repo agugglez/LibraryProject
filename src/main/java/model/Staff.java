@@ -1,8 +1,8 @@
 package model;
 
-import java.io.Serializable;
+import model.base.BaseEntityWithPrimaryKey;
 
-public class Staff implements Serializable {
+public class Staff extends BaseEntityWithPrimaryKey<String> {
 
 	/**
 	 *
@@ -23,5 +23,10 @@ public class Staff implements Serializable {
 		super();
 		this.userId = userId;
 		this.password = password;
+	}
+
+	@Override
+	public String getPrimaryKey() {
+		return getUserId();
 	}
 }

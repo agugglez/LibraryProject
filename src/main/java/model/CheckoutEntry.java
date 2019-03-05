@@ -1,9 +1,10 @@
 package model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class CheckoutEntry implements Serializable {
+import model.base.BaseEntity;
+
+public class CheckoutEntry extends BaseEntity {
 
 	/**
 	 *

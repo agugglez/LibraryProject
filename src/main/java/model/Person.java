@@ -1,8 +1,8 @@
 package model;
 
-import java.io.Serializable;
+import model.base.BaseEntity;
 
-public abstract class Person implements Serializable{
+public abstract class Person extends BaseEntity {
 
 	/**
 	 *
