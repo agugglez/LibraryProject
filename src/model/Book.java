@@ -31,8 +31,9 @@ public class Book implements Serializable {
 		bookAuthors = new ArrayList<>();
 	}
 
-	public void addBookCopy(BookCopy bc) {
-		bookCopies.add(bc);
+	public void addBookCopy() {
+		String generated_id = title + "_copy"+ bookCopies.size() + 1;
+		bookCopies.add(new BookCopy(generated_id, true));
 	}
 
 	public int getAvailability() {

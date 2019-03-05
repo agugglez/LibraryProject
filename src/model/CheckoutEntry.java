@@ -16,7 +16,8 @@ public class CheckoutEntry implements Serializable {
 	private Member member;
 	private BookCopy bookCopy;
 
-	public CheckoutEntry(LocalDate checkoutDate, LocalDate dueDate, Member member, BookCopy bookCopy) {
+	//package
+	CheckoutEntry(LocalDate checkoutDate, LocalDate dueDate, Member member, BookCopy bookCopy) {
 		super();
 		this.checkoutDate = checkoutDate;
 		this.dueDate = dueDate;

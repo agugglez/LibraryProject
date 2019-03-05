@@ -13,12 +13,13 @@ public class BookCopy implements Serializable {
 	private String copyNumber;
 
 	private Book originalBook;
-	private String status;
+	private boolean isAvailable;
 
-	public BookCopy(String copyNumber, String status) {
+	//package
+	BookCopy(String copyNumber, Boolean isAvailable) {
 		super();
 		this.copyNumber = copyNumber;
-		this.status = status;
+		this.isAvailable = isAvailable;
 	}
 
 	public Book getBook() {
@@ -33,8 +34,8 @@ public class BookCopy implements Serializable {
 		return copyNumber;
 	}
 
-	public String getStatus() {
-		return status;
+	public Boolean IsAvailable() {
+		return isAvailable;
 	}
 
 }

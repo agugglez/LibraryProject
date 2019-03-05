@@ -1,8 +1,12 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class CheckoutRecord implements Serializable{
 
@@ -18,16 +22,19 @@ public class CheckoutRecord implements Serializable{
 		checkoutEntries = new ArrayList<>();
 	}
 
-	public void addCheckoutEntry(CheckoutEntry e){
-		checkoutEntries.add(e);
+	public void checkoutBook(Member member, BookCopy bc){
+		LocalDate checkoutDate = LocalDate.now();
+		LocalDate dueDate = LocalDate.now().plusDays(bc.getBook().getAvailability());
+		CheckoutEntry ce = new CheckoutEntry(checkoutDate, dueDate, member, bc);
+		checkoutEntries.add(ce);
 	}
 
-	public void checkoutBook(BookCopy bc){
-		//not implemented
+	public List<CheckoutEntry> getCheckoutEntries(){
+		return Collections.unmodifiableList(checkoutEntries);
 	}
 
 	public void printCheckoutRecord(){
-		//not implemented
+		throw new NotImplementedException();
 	}
 
 }

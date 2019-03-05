@@ -6,28 +6,28 @@ public class Member extends Person {
 	 *
 	 */
 	private static final long serialVersionUID = -9033791289938541323L;
-	private String memberId;
-
 	private CheckoutRecord checkoutRecord;
 
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public CheckoutRecord getCheckoutRecord(){
-		return checkoutRecord;
-	}
+	private String memberId;
 
 	public Member(String memberId, String firstName, String lastName, String phoneNumber) {
 		super(firstName, lastName, phoneNumber);
 		// TODO Auto-generated constructor stub
 	}
 
-	public void printCheckoutRecord(){
-		//not implemented
+	public void checkoutBook(BookCopy bc){
+		checkoutRecord.checkoutBook(this, bc);
 	}
 
-	public void checkoutBook(BookCopy bc){
-		//not implemented
+	public CheckoutRecord getCheckoutRecord(){
+		return checkoutRecord;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void printCheckoutRecord(){
+		checkoutRecord.printCheckoutRecord();
 	}
 }
