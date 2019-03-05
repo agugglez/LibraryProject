@@ -1,18 +1,25 @@
 package dataaccess;
 
+import java.util.function.Supplier;
+
 import dataaccess.base.BaseDao;
 import model.Member;
 
 public class MemberDao extends BaseDao<Member, String> {
 
 	@Override
-	protected String getTableName() {
+	public String getTableName() {
 		return "member";
 	}
 
+	// @Override
+	// protected String getPrimaryKey() {
+	// return "memberId";
+	// }
+
 	@Override
-	protected String getPrimaryKeyName() {
-		return "memberId";
+	protected Supplier<String> getPrimaryKeySupplier(Member e) {
+		return e::getMemberId;
 	}
 
 }
