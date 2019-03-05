@@ -1,6 +1,6 @@
-package model;
+package edu.mum.library.model;
 
-import model.base.BaseEntity;
+import edu.mum.library.model.base.BaseEntity;
 
 public class Address extends BaseEntity {
 

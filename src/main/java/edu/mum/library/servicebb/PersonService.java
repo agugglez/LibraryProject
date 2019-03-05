@@ -1,11 +1,11 @@
-package edu.mum.library.service;
+package edu.mum.library.servicebb;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import edu.mum.library.model.Person;
+import edu.mum.library.modelbb.Person;
 
 @Component
 public class PersonService {

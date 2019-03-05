@@ -1,7 +1,7 @@
-package dataaccess;
+package edu.mum.library.dataaccess;
 
-import dataaccess.base.BaseDaoWithPrimaryKey;
-import model.Book;
+import edu.mum.library.dataaccess.base.BaseDaoWithPrimaryKey;
+import edu.mum.library.model.Book;
 
 public class BookDao extends BaseDaoWithPrimaryKey<Book, String> {
 

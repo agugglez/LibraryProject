@@ -1,7 +1,7 @@
-package dataaccess;
+package edu.mum.library.dataaccess;
 import java.util.List;
 
-import model.Member;
+import edu.mum.library.model.Member;
 
 public interface LibraryDAO {
 

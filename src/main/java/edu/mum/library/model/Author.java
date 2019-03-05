@@ -1,4 +1,4 @@
-package model;
+package edu.mum.library.model;
 
 public class Author extends Person{
 

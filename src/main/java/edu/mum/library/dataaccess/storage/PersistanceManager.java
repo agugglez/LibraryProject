@@ -1,4 +1,4 @@
-package dataaccess.storage;
+package edu.mum.library.dataaccess.storage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import dataaccess.base.BaseDao;
+import edu.mum.library.dataaccess.base.BaseDao;
 
 public class PersistanceManager {
 

@@ -1,4 +1,4 @@
-package dataaccess;
+package edu.mum.library.dataaccess;
 
 public class DaoFactory {
 	private DaoFactory() {

@@ -1,4 +1,4 @@
-package model.base;
+package edu.mum.library.model.base;
 
 public class PrimaryKeyHelper {
 	private PrimaryKeyHelper() {

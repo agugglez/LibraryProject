@@ -1,12 +1,12 @@
-package dataaccess.storage;
+package edu.mum.library.dataaccess.storage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.Book;
-import model.Member;
+import edu.mum.library.model.Book;
+import edu.mum.library.model.Member;
 
 public class Database implements Serializable {
 

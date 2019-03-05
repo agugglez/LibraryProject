@@ -2,7 +2,7 @@ package edu.mum.library.view;
 
 import org.springframework.stereotype.Component;
 
-import edu.mum.library.model.Person;
+import edu.mum.library.modelbb.Person;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;

@@ -1,6 +1,6 @@
-package model;
+package edu.mum.library.model;
 
-import model.base.BaseEntityWithPrimaryKey;
+import edu.mum.library.model.base.BaseEntityWithPrimaryKey;
 
 public class Staff extends BaseEntityWithPrimaryKey<String> {
 
