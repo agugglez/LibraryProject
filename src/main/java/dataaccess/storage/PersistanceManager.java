@@ -67,12 +67,13 @@ public class PersistanceManager {
 		return allData;
 	}
 
+	@SuppressWarnings("unchecked")
 	private static <T> T readField(Object obj, String name) {
 		Field f;
 		try {
 			f = obj.getClass().getDeclaredField(name);
 			f.setAccessible(true);
-			return (T) f.get(obj); // IllegalAccessException
+			return (T) f.get(obj);
 		} catch (Exception e) {
 			throw new RuntimeException("fail to read Field", e);
 		}

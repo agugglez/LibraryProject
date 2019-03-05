@@ -18,10 +18,21 @@ public abstract class BaseDaoWithPrimaryKey<T extends IPrimaryKeyGetter<ID>, ID>
 		ID id = t.getPrimaryKey();
 		Optional<T> find = secretGetAll().stream().filter(e -> id.equals(e.getPrimaryKey())).findAny();
 		if (!find.isPresent()) {
-			secretGetAll().add(t);
-
+			super.insert(t);
 		}
 		PersistanceManager.saveData();
+	}
+
+	@Override
+	public void insert(T t) {
+		ID id = t.getPrimaryKey();
+		Optional<T> find = secretGetAll().stream().filter(e -> id.equals(e.getPrimaryKey())).findAny();
+		if (!find.isPresent()) {
+			super.insert(t);
+			PersistanceManager.saveData();
+		} else {
+			throw new RuntimeException(this.getTableName() + ": " + " Record existed: " + t.getPrimaryKey());
+		}
 	}
 
 	@Override
