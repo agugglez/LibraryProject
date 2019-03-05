@@ -10,8 +10,9 @@ import edu.mum.library.model.Person;
 @Component
 public class PersonService {
 
-	public List<Person> getAllPerson() {
-		List<Person> peopleList = new ArrayList<>();
+	private List<Person> peopleList = new ArrayList<>();
+
+	{
 		peopleList.add(new Person("Hans", "Muster"));
 		peopleList.add(new Person("Ruth", "Mueller"));
 		peopleList.add(new Person("Heinz", "Kurz"));
@@ -21,6 +22,13 @@ public class PersonService {
 		peopleList.add(new Person("Anna", "Best"));
 		peopleList.add(new Person("Stefan", "Meier"));
 		peopleList.add(new Person("Martin", "Mueller"));
+	}
+
+	public List<Person> getAllPerson() {
 		return peopleList;
+	}
+
+	public void addPerson(Person person) {
+		peopleList.add(person);
 	}
 }
