@@ -7,8 +7,7 @@ import java.util.List;
 
 import edu.mum.library.model.base.BaseEntity;
 
-
-public class CheckoutRecord extends BaseEntity{
+public class CheckoutRecord extends BaseEntity {
 
 	/**
 	 *
@@ -22,18 +21,19 @@ public class CheckoutRecord extends BaseEntity{
 		checkoutEntries = new ArrayList<>();
 	}
 
-	public void checkoutBook(Member member, BookCopy bc){
+	public void checkoutBook(Member member, BookCopy bc) {
 		LocalDate checkoutDate = LocalDate.now();
 		LocalDate dueDate = LocalDate.now().plusDays(bc.getBook().getAvailability());
 		CheckoutEntry ce = new CheckoutEntry(checkoutDate, dueDate, member, bc);
 		checkoutEntries.add(ce);
+		bc.setAvailable(false);
 	}
 
-	public List<CheckoutEntry> getCheckoutEntries(){
+	public List<CheckoutEntry> getCheckoutEntries() {
 		return Collections.unmodifiableList(checkoutEntries);
 	}
 
-	public void printCheckoutRecord(){
+	public void printCheckoutRecord() {
 		throw new UnsupportedOperationException();
 	}
 

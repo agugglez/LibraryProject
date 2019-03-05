@@ -16,7 +16,7 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 	private boolean isAvailable;
 	private Book originalBook;
 
-	//package
+	// package
 	BookCopy(String copyNumber, Boolean isAvailable) {
 		super();
 		this.copyNumber = copyNumber;
@@ -35,10 +35,14 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 		return copyNumber;
 	}
 
-
-	public Boolean IsAvailable() {
+	public boolean isAvailable() {
 		return isAvailable;
 	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
 	@Override
 	public String getPrimaryKey() {
 		return getCopyNumber();

@@ -21,7 +21,7 @@ public abstract class BaseDao<T, ID> implements IDao<T, ID> {
 	@Override
 	public void insert(T t) {
 		secretGetAll().add(t);
-		PersistanceManager.saveData();
+		PersistanceManager.saveDatabase();
 	}
 
 	@Override

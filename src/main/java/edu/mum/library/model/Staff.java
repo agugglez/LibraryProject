@@ -11,6 +11,12 @@ public class Staff extends BaseEntityWithPrimaryKey<String> {
 	private String userId;
 	private String password;
 
+	private AuthorizationLevel authorizationLevel;
+
+	public AuthorizationLevel getAuthorizationLevel() {
+		return authorizationLevel;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -19,10 +25,11 @@ public class Staff extends BaseEntityWithPrimaryKey<String> {
 		return password;
 	}
 
-	public Staff(String userId, String password) {
+	public Staff(String userId, String password, AuthorizationLevel adminLevel) {
 		super();
 		this.userId = userId;
 		this.password = password;
+		this.authorizationLevel = adminLevel;
 	}
 
 	@Override

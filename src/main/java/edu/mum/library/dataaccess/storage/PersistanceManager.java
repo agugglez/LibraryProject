@@ -16,13 +16,13 @@ public class PersistanceManager {
 
 	public static final String OUTPUT_DIR = // System.getProperty("user.dir") +
 			"~/library.bin";
-	private static Database library = (Database) readData();
+	private static Database library = (Database) readDatabase();
 
 	public static Database getLibrary() {
 		return library;
 	}
 
-	public static void saveData() {
+	public static void saveDatabase() {
 		try {
 
 			// Store Serialized User Object in File
@@ -40,7 +40,7 @@ public class PersistanceManager {
 
 	}
 
-	public static Object readData() {
+	public static Object readDatabase() {
 		try {
 
 			// Read from the stored file

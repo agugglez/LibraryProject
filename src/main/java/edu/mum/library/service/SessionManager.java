@@ -1,42 +1,25 @@
 package edu.mum.library.service;
 
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.stereotype.Component;
 
 import edu.mum.library.model.Staff;
 
+@Component
 public class SessionManager {
 
-	private static Staff staff;
+	private Staff activeStaff;
 
-	public static boolean login(String username, String password) {
-
-		for(Staff s: getStaffList()){
-			if(s.getUserId() == username && s.getPassword() == password)
-			{
-				staff = s;
-				return true;
-			}
-		}
-
-		return false;
+	public void setLoginUser(Staff loginStaff) {
+		this.activeStaff = loginStaff;
 	}
 
-	private static List<Staff> getStaffList(){
-		Staff staff1 = new Staff("augusto", "otsugua");
-		Staff staff2 = new Staff("dong", "gnod");
-		Staff staff3 = new Staff("andrew", "werdna");
+	public void logout() {
 
-		return Arrays.asList(staff1, staff2, staff3);
-	}
-
-	public static void logout() {
-
-		staff=null;
+		activeStaff = null;
 
 	}
 
-	public static Staff getStaff() {
-		return staff;
+	public Staff getLoginUser() {
+		return activeStaff;
 	}
 }

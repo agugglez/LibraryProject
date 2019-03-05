@@ -20,7 +20,7 @@ public abstract class BaseDaoWithPrimaryKey<T extends IPrimaryKeyGetter<ID>, ID>
 		if (!find.isPresent()) {
 			super.insert(t);
 		}
-		PersistanceManager.saveData();
+		PersistanceManager.saveDatabase();
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public abstract class BaseDaoWithPrimaryKey<T extends IPrimaryKeyGetter<ID>, ID>
 		Optional<T> find = secretGetAll().stream().filter(e -> id.equals(e.getPrimaryKey())).findAny();
 		if (!find.isPresent()) {
 			super.insert(t);
-			PersistanceManager.saveData();
+			PersistanceManager.saveDatabase();
 		} else {
 			throw new RuntimeException(this.getTableName() + ": " + " Record existed: " + t.getPrimaryKey());
 		}

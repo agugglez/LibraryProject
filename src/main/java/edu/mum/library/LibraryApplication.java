@@ -7,7 +7,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import edu.mum.library.view.BaseFxController;
+import edu.mum.library.view.LibraryUiManager;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +20,7 @@ import javafx.stage.Stage;
 
 /**
  * An Application Main Entry
- * 
+ *
  * @author dongwang
  *
  */
@@ -65,15 +67,16 @@ public class LibraryApplication extends Application {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(LibraryApplication.class);
 		context = builder.run(getParameters().getRaw().toArray(new String[0]));
 		context.getBean(LibraryApplication.class).context = context;
-//		context.getBeanFactory().registerSingleton("libraryApplication", this);
+		// context.getBeanFactory().registerSingleton("libraryApplication",
+		// this);
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 		BorderPane rootLayout = importLayout("/edu/mum/library/view/RootLayout.fxml");
-		
+
 		this.primaryStage = primaryStage;
-		context.getBean(LibraryApplication.class).primaryStage =  this.primaryStage;
+		context.getBean(LibraryApplication.class).primaryStage = this.primaryStage;
 		this.primaryStage.setTitle("AddressApp");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/Address_Book.png"));
 
@@ -84,7 +87,11 @@ public class LibraryApplication extends Application {
 
 		// Set person overview into the center of root layout.
 		rootLayout.setCenter(personOverview);
-		
+		LibraryUiManager uiManager = context.getBean(LibraryUiManager.class);
+		if (!uiManager.showLoginDialog()) {
+			Platform.exit();
+		}
+
 	}
 
 	@Override

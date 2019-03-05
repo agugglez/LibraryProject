@@ -13,7 +13,7 @@ public class LibraryUiManager extends BaseUI {
 
 	/**
 	 * Show a person Dialog
-	 * 
+	 *
 	 * @param person
 	 * @return
 	 */
@@ -33,6 +33,30 @@ public class LibraryUiManager extends BaseUI {
 
 		page.setUserData(person);
 		dialogStage.setUserData(person);
+		// Show the dialog and wait until the user closes it
+		dialogStage.showAndWait();
+		BaseFxModalController controller = (BaseFxModalController) dialogStage.getUserData();
+		return controller.isOkClicked();
+	}
+
+	/**
+	 * Show a Login Dialog
+	 *
+	 * @param person
+	 * @return
+	 */
+	public boolean showLoginDialog() {
+
+		// Create the dialog Stage.
+		Stage dialogStage = new Stage();
+		// Load the fxml file and create a new stage for the popup dialog.
+		AnchorPane page = this.application.importLayout("/edu/mum/library/view/LoginDialog.fxml", dialogStage);
+
+		dialogStage.setTitle("Login");
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initOwner(this.application.getPrimaryStage());
+		Scene scene = new Scene(page);
+		dialogStage.setScene(scene);
 		// Show the dialog and wait until the user closes it
 		dialogStage.showAndWait();
 		BaseFxModalController controller = (BaseFxModalController) dialogStage.getUserData();
