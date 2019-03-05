@@ -1,6 +1,9 @@
 package model;
 
-public class Member extends Person {
+import model.base.IPrimaryKeyGetter;
+import model.base.PrimaryKeyHelper;
+
+public class Member extends Person implements IPrimaryKeyGetter<String> {
 
 	/**
 	 *
@@ -15,28 +18,16 @@ public class Member extends Person {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void checkoutBook(BookCopy bc){
+	public void checkoutBook(BookCopy bc) {
 		checkoutRecord.checkoutBook(this, bc);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Member other = (Member) obj;
-		if (memberId == null) {
-			if (other.memberId != null)
-				return false;
-		} else if (!memberId.equals(other.memberId))
-			return false;
-		return true;
+		return PrimaryKeyHelper.equals(this, obj);
 	}
 
-	public CheckoutRecord getCheckoutRecord(){
+	public CheckoutRecord getCheckoutRecord() {
 		return checkoutRecord;
 	}
 
@@ -46,13 +37,16 @@ public class Member extends Person {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
-		return result;
+		return PrimaryKeyHelper.hashCode(this);
 	}
 
-	public void printCheckoutRecord(){
+	public void printCheckoutRecord() {
 		checkoutRecord.printCheckoutRecord();
+	}
+
+	@Override
+	public String getPrimaryKey() {
+		// TODO Auto-generated method stub
+		return this.getMemberId();
 	}
 }

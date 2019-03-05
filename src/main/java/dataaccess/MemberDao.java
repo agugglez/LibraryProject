@@ -1,25 +1,13 @@
 package dataaccess;
 
-import java.util.function.Supplier;
-
-import dataaccess.base.BaseDao;
+import dataaccess.base.BaseDaoWithPrimaryKey;
 import model.Member;
 
-public class MemberDao extends BaseDao<Member, String> {
+public class MemberDao extends BaseDaoWithPrimaryKey<Member, String> {
 
 	@Override
 	public String getTableName() {
 		return "member";
-	}
-
-	// @Override
-	// protected String getPrimaryKey() {
-	// return "memberId";
-	// }
-
-	@Override
-	protected Supplier<String> getPrimaryKeySupplier(Member e) {
-		return e::getMemberId;
 	}
 
 }

@@ -1,25 +1,12 @@
 package dataaccess;
 
-import java.util.function.Supplier;
-
-import dataaccess.base.BaseDao;
+import dataaccess.base.BaseDaoWithPrimaryKey;
 import model.Book;
 
-public class BookDao extends BaseDao<Book, String> {
+public class BookDao extends BaseDaoWithPrimaryKey<Book, String> {
 
 	@Override
 	public String getTableName() {
 		return "book";
 	}
-
-	@Override
-	protected Supplier<String> getPrimaryKeySupplier(Book e) {
-		return e::getIsbn;
-	}
-
-	// @Override
-	// protected String getPrimaryKey() {
-	// return "isbn";
-	// }
-
 }

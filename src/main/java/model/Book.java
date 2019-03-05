@@ -1,11 +1,12 @@
 package model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Book implements Serializable {
+import model.base.BaseEntityWithPrimaryKey;
+
+public class Book extends BaseEntityWithPrimaryKey<String> {
 
 	/**
 	 *
@@ -32,25 +33,8 @@ public class Book implements Serializable {
 	}
 
 	public void addBookCopy() {
-		String generated_id = title + "_copy"+ bookCopies.size() + 1;
+		String generated_id = title + "_copy" + bookCopies.size() + 1;
 		bookCopies.add(new BookCopy(generated_id, true));
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Book other = (Book) obj;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
 	}
 
 	public int getAvailability() {
@@ -74,10 +58,8 @@ public class Book implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
+	public String getPrimaryKey() {
+		return getIsbn();
 	}
+
 }
