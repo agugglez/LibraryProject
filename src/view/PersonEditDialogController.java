@@ -54,10 +54,10 @@ public class PersonEditDialogController {
 
 		firstNameField.setText(person.getFirstName());
 		lastNameField.setText(person.getLastName());
-		streetField.setText(person.getStreet());
-		postalCodeField.setText(Integer.toString(person.getPostalCode()));
-		cityField.setText(person.getCity());
-		birthdayField.setText(DateUtil.format(person.getBirthday()));
+//		streetField.setText(person.getStreet());
+//		postalCodeField.setText(Integer.toString(person.getPostalCode()));
+//		cityField.setText(person.getCity());
+//		birthdayField.setText(DateUtil.format(person.getBirthday()));
 		birthdayField.setPromptText("dd.mm.yyyy");
 	}
 
@@ -76,12 +76,12 @@ public class PersonEditDialogController {
 	@FXML
 	private void handleOk() {
 		if (isInputValid()) {
-			person.setFirstName(firstNameField.getText());
-			person.setLastName(lastNameField.getText());
-			person.setStreet(streetField.getText());
-			person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-			person.setCity(cityField.getText());
-			person.setBirthday(DateUtil.parse(birthdayField.getText()));
+//			person.setFirstName(firstNameField.getText());
+//			person.setLastName(lastNameField.getText());
+//			person.setStreet(streetField.getText());
+//			person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
+//			person.setCity(cityField.getText());
+//			person.setBirthday(DateUtil.parse(birthdayField.getText()));
 
 			okClicked = true;
 			dialogStage.close();
