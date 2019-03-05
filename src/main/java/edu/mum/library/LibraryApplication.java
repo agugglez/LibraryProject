@@ -8,6 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import edu.mum.library.view.BaseFxController;
 import edu.mum.library.view.LibraryUiManager;
+import edu.mum.library.view.RootController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +52,7 @@ public class LibraryApplication extends Application {
 			T result = loader.load();
 			if (stage != null) {
 				BaseFxController controller = (BaseFxController) loader.getController();
+				stage.setUserData(controller);
 				controller.setCurrentStage(stage);
 				stage.setOnHidden(e -> controller.windowClose());
 				controller.postInit();
@@ -73,7 +75,7 @@ public class LibraryApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		BorderPane rootLayout = importLayout("/edu/mum/library/view/RootLayout.fxml");
+		BorderPane rootLayout = importLayout("/edu/mum/library/view/RootLayout.fxml", primaryStage);
 
 		this.primaryStage = primaryStage;
 		context.getBean(LibraryApplication.class).primaryStage = this.primaryStage;
@@ -83,13 +85,15 @@ public class LibraryApplication extends Application {
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		AnchorPane personOverview = importLayout("/edu/mum/library/view/PersonOverview.fxml");
+//		AnchorPane personOverview = importLayout("/edu/mum/library/view/PersonOverview.fxml");
 
 		// Set person overview into the center of root layout.
-		rootLayout.setCenter(personOverview);
+//		rootLayout.setCenter(personOverview);
 		LibraryUiManager uiManager = context.getBean(LibraryUiManager.class);
 		if (!uiManager.showLoginDialog()) {
 			Platform.exit();
+		} else {
+			((RootController) this.primaryStage.getUserData()).menuInit();
 		}
 
 	}

@@ -30,6 +30,10 @@ public class LoginController extends BaseFxModalController {
 		if (isLogin) {
 			this.getCurrentStage().close();
 		}
+		else{
+			fxViewManager.showError(this.getCurrentStage(), "username and/or password incorrect",
+					"Error", "Login Error");
+		}
 	}
 
 	@Override

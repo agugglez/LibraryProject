@@ -40,7 +40,7 @@ public class PersistanceManager {
 
 	}
 
-	public static Object readDatabase() {
+	public static Database readDatabase() {
 		try {
 
 			// Read from the stored file
@@ -49,17 +49,17 @@ public class PersistanceManager {
 			Object result = input.readObject();
 			input.close();
 
-			return result;
+			return (Database)result;
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return new Database();
 	}
 
 	public static <T, ID> List<T> getEntityAllData(BaseDao<T, ID> dao) {

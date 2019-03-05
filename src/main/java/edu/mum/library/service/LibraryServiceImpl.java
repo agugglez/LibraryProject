@@ -1,7 +1,5 @@
 package edu.mum.library.service;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +8,6 @@ import edu.mum.library.dataaccess.BookDao;
 import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Book;
 import edu.mum.library.model.BookCopy;
-import edu.mum.library.model.CheckoutEntry;
 import edu.mum.library.model.Member;
 
 @Service

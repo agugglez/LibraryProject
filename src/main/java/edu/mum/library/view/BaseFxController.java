@@ -1,8 +1,13 @@
 package edu.mum.library.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javafx.stage.Stage;
 
 public abstract class BaseFxController extends BaseUI {
+
+	@Autowired
+	protected FxViewManager fxViewManager;
 
 	protected Stage currentStage;
 
