@@ -1,5 +1,7 @@
 package edu.mum.library.view;
 
+import javafx.stage.Stage;
+
 public class UserObjectForView {
 	private Object controller;
 	private Object parameter;
@@ -24,5 +26,13 @@ public class UserObjectForView {
 
 	public void setParameter(Object parameter) {
 		this.parameter = parameter;
+	}
+
+	public static UserObjectForView getUserObjectForViewFromStage(Stage stage) {
+		return ((UserObjectForView) stage.getUserData());
+	}
+
+	public static Object getControllerFromStage(Stage stage) {
+		return getUserObjectForViewFromStage(stage).getController();
 	}
 }

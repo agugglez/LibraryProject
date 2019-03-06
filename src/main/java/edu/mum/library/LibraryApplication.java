@@ -94,7 +94,7 @@ public class LibraryApplication extends Application {
 		if (!uiManager.showLoginDialog()) {
 			Platform.exit();
 		} else {
-			((RootController) ((UserObjectForView) this.primaryStage.getUserData()).getController()).menuInit();
+			((RootController) UserObjectForView.getControllerFromStage(primaryStage)).menuInit();
 		}
 
 	}

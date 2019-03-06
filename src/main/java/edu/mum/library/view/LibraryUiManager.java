@@ -21,26 +21,7 @@ public class LibraryUiManager extends BaseUI {
 	 */
 	public boolean showMemberEditDialog(MemberDto person) {
 
-		// Create the dialog Stage.
-		Stage dialogStage = new Stage();
-		// Load the fxml file and create a new stage for the popup dialog.
-		// dialogStage.setUserData(person);
-		AnchorPane page = this.application.importLayout("/edu/mum/library/view/MemberEditDialog.fxml", dialogStage,
-				person);
-
-		dialogStage.setTitle("Edit Member");
-		dialogStage.initModality(Modality.WINDOW_MODAL);
-		dialogStage.initOwner(this.application.getPrimaryStage());
-		Scene scene = new Scene(page);
-		dialogStage.setScene(scene);
-
-		// scene.setUserData(person);
-		// dialogStage.setUserData(person);
-		// Show the dialog and wait until the user closes it
-		dialogStage.showAndWait();
-		BaseFxModalController controller = (BaseFxModalController) ((edu.mum.library.view.UserObjectForView) dialogStage
-				.getUserData()).getController();
-		return controller.isOkClicked();
+		return showDialog("/edu/mum/library/view/MemberEditDialog.fxml", "Edit Book", person);
 	}
 
 	/**
@@ -51,28 +32,8 @@ public class LibraryUiManager extends BaseUI {
 	 */
 	public boolean showBookEditDialog(BookDto person) {
 
-		// Create the dialog Stage.
-		Stage dialogStage = new Stage();
-		// Load the fxml file and create a new stage for the popup dialog.
-		// dialogStage.setUserData(person);
-		AnchorPane page = this.application.importLayout("/edu/mum/library/view/BookEditDialog.fxml", dialogStage,
-				person);
-
-		dialogStage.setTitle("Edit Book");
-		dialogStage.initModality(Modality.WINDOW_MODAL);
-		dialogStage.initOwner(this.application.getPrimaryStage());
-		Scene scene = new Scene(page);
-		dialogStage.setScene(scene);
-
-		// scene.setUserData(person);
-		// dialogStage.setUserData(person);
-		// Show the dialog and wait until the user closes it
-		dialogStage.showAndWait();
-		BaseFxModalController controller = (BaseFxModalController) ((edu.mum.library.view.UserObjectForView) dialogStage
-				.getUserData()).getController();
-		return controller.isOkClicked();
+		return showDialog("/edu/mum/library/view/BookEditDialog.fxml", "Edit Book", person);
 	}
-
 
 	/**
 	 * Show a person Dialog
@@ -82,25 +43,7 @@ public class LibraryUiManager extends BaseUI {
 	 */
 	public boolean showPersonEditDialog(Person person) {
 
-		// Create the dialog Stage.
-		Stage dialogStage = new Stage();
-		// Load the fxml file and create a new stage for the popup dialog.
-		// dialogStage.setUserData(person);
-		AnchorPane page = this.application.importLayout("/edu/mum/library/view/PersonEditDialog.fxml", dialogStage,
-				person);
-
-		dialogStage.setTitle("Edit Person");
-		dialogStage.initModality(Modality.WINDOW_MODAL);
-		dialogStage.initOwner(this.application.getPrimaryStage());
-		Scene scene = new Scene(page);
-		dialogStage.setScene(scene);
-
-		page.setUserData(person);
-		dialogStage.setUserData(person);
-		// Show the dialog and wait until the user closes it
-		dialogStage.showAndWait();
-		BaseFxModalController controller = (BaseFxModalController) dialogStage.getUserData();
-		return controller.isOkClicked();
+		return showDialog("/edu/mum/library/view/PersonEditDialog.fxml", "Edit", person);
 	}
 
 	/**
@@ -111,20 +54,24 @@ public class LibraryUiManager extends BaseUI {
 	 */
 	public boolean showLoginDialog() {
 
-		// Create the dialog Stage.
+		return showDialog("/edu/mum/library/view/LoginDialog.fxml", "Login", null);
+
+	}
+
+	private boolean showDialog(String layoutPath, String title, Object param) {
 		Stage dialogStage = new Stage();
 		// Load the fxml file and create a new stage for the popup dialog.
-		AnchorPane page = this.application.importLayout("/edu/mum/library/view/LoginDialog.fxml", dialogStage, null);
+		AnchorPane page = this.application.importLayout(layoutPath, dialogStage, param);
 
-		dialogStage.setTitle("Login");
+		dialogStage.setTitle(title);
 		dialogStage.initModality(Modality.WINDOW_MODAL);
 		dialogStage.initOwner(this.application.getPrimaryStage());
 		Scene scene = new Scene(page);
 		dialogStage.setScene(scene);
 		// Show the dialog and wait until the user closes it
 		dialogStage.showAndWait();
-		BaseFxModalController controller = (BaseFxModalController) ((UserObjectForView) dialogStage.getUserData())
-				.getController();
+		BaseFxModalController controller = (BaseFxModalController) UserObjectForView
+				.getControllerFromStage(dialogStage);
 		return controller.isOkClicked();
 	}
 }
