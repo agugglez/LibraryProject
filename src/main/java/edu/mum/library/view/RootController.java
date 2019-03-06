@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import edu.mum.library.model.AuthorizationLevel;
 import edu.mum.library.service.SessionManager;
+import edu.mum.library.view.base.BaseFxController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;

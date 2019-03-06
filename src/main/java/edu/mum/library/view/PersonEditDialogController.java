@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import edu.mum.library.modelbb.Person;
 import edu.mum.library.servicebb.DateUtil;
 import edu.mum.library.servicebb.PersonService;
+import edu.mum.library.view.base.BaseFxModalController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

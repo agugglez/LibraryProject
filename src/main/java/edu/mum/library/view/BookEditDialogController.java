@@ -12,30 +12,26 @@ import edu.mum.library.model.Book;
 import edu.mum.library.service.LibraryService;
 import edu.mum.library.view.dto.BookDto;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class BookEditDialogController extends BaseFxModalController {
+public class BookEditDialogController extends LibraryFxModalEditController<BookDto> {
 
 	@Override
-	public void postInit() {
-		this.bookDto = (BookDto) ((UserObjectForView) this.getCurrentStage().getUserData()).getParameter();
-		if (bookDto != null) {
-			isbnIdField.setText(bookDto.getIsbn());
-			isbnIdField.setDisable(true);
-			titleField.setText(bookDto.getTitle());
-			availabilityField.setText(Integer.toString(bookDto.getAvailability()));
+	public void morePost() {
+		if (this.entityDto != null) {
 			copiesField.setDisable(true);
-			copiesField.setText(Integer.toString(bookDto.getNumberofCopies()));
-			// phoneNumberField.setPromptText("dd.mm.yyyy");
+			isbnField.setDisable(true);
 		}
+		this.registerRequired("ISBN", isbnField::getText);
+		this.registerRequired("Title", titleField::getText);
+		this.registerRequired("availability", availabilityField::getText);
+		this.registerRequired("Copies", copiesField::getText);
 	}
 
 	@FXML
-	private TextField isbnIdField;
+	private TextField isbnField;
 	@FXML
 	private TextField titleField;
 	@FXML
@@ -43,17 +39,14 @@ public class BookEditDialogController extends BaseFxModalController {
 	@FXML
 	private TextField copiesField;
 
-	private BookDto bookDto;
-
-	private boolean okClicked = false;
 	@Autowired
 	private LibraryService libraryService;
 	@Autowired
 	private BookDao bookDao;
 
 	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called after
+	 * the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
@@ -61,47 +54,30 @@ public class BookEditDialogController extends BaseFxModalController {
 	}
 
 	/**
-	 * Returns true if the user clicked OK, false otherwise.
-	 *
-	 * @return
-	 */
-	public boolean isOkClicked() {
-		return okClicked;
-	}
-
-	/**
 	 * Called when the user clicks ok.
 	 */
 	@FXML
 	private void handleOk() {
-		if (true) {// isInputValid()
-			if (bookDto != null) {
+		if (isInputValid()) {
+			if (this.entityDto != null) {
 				// person.setMemberId(memberIdField.getText());
-				// isbnIdField.setText(person.getIsbn());
+				// isbnField.setText(person.getIsbn());
 				// titleField.setText(person.getTitle());
 				// availabilityField.setText(Integer.toString(person.getAvailability()));
 				// copiesField.setDisable(true);
 				// copiesField.setText(Integer.toString(person.getNumberofCopies()));
-				bookDto.setIsbn(isbnIdField.getText());
-				bookDto.setTitle(titleField.getText());
-				bookDto.setAvailability(Integer.parseInt(availabilityField.getText()));
+				this.fromViewToDto();
 				// Read from database to update
-				Book book = bookDao.readById(bookDto.getIsbn());
-				book.setIsbn(isbnIdField.getText());
+				Book book = bookDao.readById(this.entityDto.getIsbn());
+				book.setIsbn(isbnField.getText());
 				book.setTitle(titleField.getText());
 				book.setAvailability(Integer.parseInt(availabilityField.getText()));
 				bookDao.save(book);
 
 			} else {
-				Book book = new Book(isbnIdField.getText(), titleField.getText(),
+				Book book = new Book(isbnField.getText(), titleField.getText(),
 						Integer.parseInt(availabilityField.getText()), new ArrayList<>());
 
-				// person.setLastName();
-				// person.setStreet(streetField.getText());
-				// person.setZipcode(postalCodeField.getText());
-				// person.setCity(cityField.getText());
-				// person.setPhoneNumber();
-				// person.setState(stateField.getText());
 				libraryService.addBook(book, Integer.parseInt(copiesField.getText()));
 
 			}
@@ -110,35 +86,26 @@ public class BookEditDialogController extends BaseFxModalController {
 		}
 	}
 
-	/**
-	 * Called when the user clicks cancel.
-	 */
-	@FXML
-	private void handleCancel() {
-		this.getCurrentStage().close();
-	}
-
-	/**
-	 * Validates the user input in the text fields.
-	 *
-	 * @return true if the input is valid
-	 */
-	private boolean isInputValid() {
-		String errorMessage = "";
-
-		if (errorMessage.length() == 0) {
-			return true;
-		} else {
-			// Show the error message.
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(this.getCurrentStage());
-			alert.setTitle("Invalid Fields");
-			alert.setHeaderText("Please correct invalid fields");
-			alert.setContentText(errorMessage);
-
-			alert.showAndWait();
-
-			return false;
+	@Override
+	protected String moreCheck() {
+		StringBuilder sb = new StringBuilder();
+		// try to parse the postal code into an int.
+		try {
+			int available = Integer.parseInt(availabilityField.getText());
+			if (available <= 0) {
+				sb.append("No valid vailability (must be greater than 0)!\n");
+			}
+		} catch (NumberFormatException e) {
+			sb.append("No valid vailability (must be an integer)!\n");
 		}
+		try {
+			int copies = Integer.parseInt(copiesField.getText());
+			if (copies < 0) {
+				sb.append("No valid copies (must be greater than or equal to 0)!\n");
+			}
+		} catch (NumberFormatException e) {
+			sb.append("No valid copies (must be an integer)!\n");
+		}
+		return sb.toString();
 	}
 }

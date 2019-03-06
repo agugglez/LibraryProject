@@ -7,9 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
 import java.util.List;
 
+import edu.mum.library.common.ReflectionHelper;
 import edu.mum.library.dataaccess.base.BaseDao;
 
 public class PersistanceManager {
@@ -63,19 +63,9 @@ public class PersistanceManager {
 	}
 
 	public static <T, ID> List<T> getEntityAllData(BaseDao<T, ID> dao) {
-		List<T> allData = readField(getLibrary(), dao.getTableName());
+		List<T> allData = ReflectionHelper.readField(getLibrary(), dao.getTableName());
 		return allData;
 	}
 
-	@SuppressWarnings("unchecked")
-	private static <T> T readField(Object obj, String name) {
-		Field f;
-		try {
-			f = obj.getClass().getDeclaredField(name);
-			f.setAccessible(true);
-			return (T) f.get(obj);
-		} catch (Exception e) {
-			throw new RuntimeException("fail to read Field", e);
-		}
-	}
+
 }

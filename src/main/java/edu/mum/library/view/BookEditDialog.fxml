@@ -26,7 +26,7 @@
             <Label text="Title" GridPane.rowIndex="1" />
             <Label text="Availablity" GridPane.rowIndex="2" />
             <Label text="Copies" GridPane.rowIndex="3" />
-            <TextField fx:id="isbnIdField" GridPane.columnIndex="1" />
+            <TextField fx:id="isbnField" GridPane.columnIndex="1" />
             <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="availabilityField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="copiesField" GridPane.columnIndex="1" GridPane.rowIndex="3" />

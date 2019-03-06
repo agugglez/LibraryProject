@@ -3,6 +3,7 @@ package edu.mum.library.view;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.modelbb.Person;
+import edu.mum.library.view.base.BaseFxModalController;
 import edu.mum.library.view.dto.BookDto;
 import edu.mum.library.view.dto.MemberDto;
 import javafx.scene.Scene;
