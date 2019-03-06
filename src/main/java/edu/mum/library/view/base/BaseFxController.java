@@ -32,7 +32,7 @@ public abstract class BaseFxController extends BaseUI {
 		this.closeResult = closeResult;
 	}
 
-	public void windowClose() {
+	public void onWindowClose() {
 
 		this.getCurrentStage().setUserData(new UserObjectForView(this, null));
 
@@ -40,5 +40,8 @@ public abstract class BaseFxController extends BaseUI {
 
 	public void postInit() {
 
+	}
+	public void closeWindow(){
+		this.getCurrentStage().close();
 	}
 }

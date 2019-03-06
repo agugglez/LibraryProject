@@ -9,14 +9,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.dataaccess.BookDao;
+import edu.mum.library.service.LibraryService;
 import edu.mum.library.view.base.BaseFxController;
 import edu.mum.library.view.dto.BookDto;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 @Component
@@ -25,10 +25,11 @@ public class BookOverviewController extends BaseFxController {
 	@FXML
 	private TableView<BookDto> personTable;
 
-//	this.isbn = new SimpleStringProperty(member.getIsbn());
-//	this.title = new SimpleStringProperty(member.getTitle());
-//	this.availability = new SimpleIntegerProperty(member.getAvailability());
-//	this.numberofCopies = new SimpleIntegerProperty(member.getBookCopies().size());
+	// this.isbn = new SimpleStringProperty(member.getIsbn());
+	// this.title = new SimpleStringProperty(member.getTitle());
+	// this.availability = new SimpleIntegerProperty(member.getAvailability());
+	// this.numberofCopies = new
+	// SimpleIntegerProperty(member.getBookCopies().size());
 	@FXML
 	private TableColumn<BookDto, String> isbnColumn;
 	@FXML
@@ -38,17 +39,51 @@ public class BookOverviewController extends BaseFxController {
 	@FXML
 	private TableColumn<BookDto, Integer> numberofCopiesColumn;
 
+	@FXML
+	private TextField searchFilter;
+
 	@Autowired
 	private LibraryUiManager libraryUiManager;
 
-	// @Autowired
-	// private LibraryService libraryService;
+	@Autowired
+	private LibraryService libraryService;
 
 	@Autowired
 	private BookDao bookDao;
 
 	List<BookDto> getAllMemberList() {
-		return bookDao.getAll().stream().map(m -> new BookDto(m)).collect(Collectors.toList());
+		return bookDao.getAll().stream().filter((book) -> book.getIsbn().startsWith(searchFilter.getText()))
+				.map(m -> new BookDto(m)).collect(Collectors.toList());
+	}
+
+	@FXML
+	public void addCopy() {
+		BookDto selectedPerson = personTable.getSelectionModel().getSelectedItem();
+		if (selectedPerson != null) {
+			libraryService.addBookCopy(bookDao.readById(selectedPerson.getIsbn()));
+			selectedPerson.setCopies("" + bookDao.readById(selectedPerson.getIsbn()).getBookCopies().size());
+			fxViewManager.showInformation(application.getPrimaryStage(), "You have added a copy for:"+selectedPerson.getIsbn(), "Operation finished Successfully.",
+					"Prompt");
+		} else {
+			// Nothing selected.
+			// Alert alert = new Alert(AlertType.WARNING);
+			// alert.initOwner(application.getPrimaryStage());
+			// alert.setTitle("No Selection");
+			// alert.setHeaderText("No Person Selected");
+			// alert.setContentText("Please select a person in the table.");
+			//
+			// alert.showAndWait();
+			// this.fxViewManager.showError(stage, errorMessage, title,
+			// headerText);
+			fxViewManager.showWarning(application.getPrimaryStage(), "Please select a book!", "No book selected",
+					"No Selection");
+		}
+
+	}
+
+	@FXML
+	public void refresh() {
+		personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
 	}
 
 	/**
@@ -57,13 +92,15 @@ public class BookOverviewController extends BaseFxController {
 	 */
 	@FXML
 	private void initialize() {
-		personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
+		// personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
+		refresh();
 		preJava8();
 
 		// Listen for selection changes and show the person details when
 		// changed.
-//		personTable.getSelectionModel().selectedItemProperty()
-//				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+		// personTable.getSelectionModel().selectedItemProperty()
+		// .addListener((observable, oldValue, newValue) ->
+		// showPersonDetails(newValue));
 
 	}
 
@@ -73,54 +110,6 @@ public class BookOverviewController extends BaseFxController {
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("availability"));
 		numberofCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("copies"));
-//		firstNameColumn
-//				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
-//
-//					@Override
-//					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
-//						return param.getValue().firstNameProperty();
-//					}
-//				});
-
-//		lastNameColumn
-//				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
-//
-//					@Override
-//					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
-//						return param.getValue().lastNameProperty();
-//					}
-//				});
-//		memberIdColumn
-//				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
-//
-//					@Override
-//					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
-//						return param.getValue().memberIdProperty();
-//					}
-//				});
-	}
-
-	/**
-	 * Called when the user clicks on the delete button.
-	 */
-	@FXML
-	private void handleDeletePerson() {
-		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
-			String isbn = personTable.getItems().get(selectedIndex).getIsbn();
-			personTable.getItems().remove(selectedIndex);
-			// TODO
-			this.bookDao.delete(isbn);
-		} else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(application.getPrimaryStage());
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No Person Selected");
-			alert.setContentText("Please select a person in the table.");
-
-			alert.showAndWait();
-		}
 	}
 
 	/**
@@ -131,7 +120,9 @@ public class BookOverviewController extends BaseFxController {
 	private void handleNewPerson() {
 		BookDto tempPerson = null;// new Person();
 		if (libraryUiManager.showBookEditDialog(tempPerson)) {
-			personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
+			// personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
+			searchFilter.setText("");
+			refresh();
 		}
 	}
 
@@ -141,6 +132,7 @@ public class BookOverviewController extends BaseFxController {
 	 */
 	@FXML
 	private void handleEditPerson() {
+//		searchFilter.setText("");
 		BookDto selectedPerson = personTable.getSelectionModel().getSelectedItem();
 		if (selectedPerson != null) {
 			boolean okClicked = libraryUiManager.showBookEditDialog(selectedPerson);
@@ -150,13 +142,8 @@ public class BookOverviewController extends BaseFxController {
 
 		} else {
 			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(application.getPrimaryStage());
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No Person Selected");
-			alert.setContentText("Please select a person in the table.");
-
-			alert.showAndWait();
+			fxViewManager.showWarning(application.getPrimaryStage(), "Please select a book!", "No book selected",
+					"No Selection");
 		}
 	}
 }

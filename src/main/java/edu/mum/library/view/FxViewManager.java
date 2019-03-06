@@ -9,15 +9,25 @@ import javafx.stage.Stage;
 @Component
 public class FxViewManager extends BaseUI {
 
-	public void showError(Stage stage, String errorMessage, String title, String headerText){
-		Alert alert = new Alert(AlertType.ERROR);
+	public void showError(Stage stage, String errorMessage, String title, String headerText) {
+		showAlert(stage, errorMessage, title, headerText, AlertType.ERROR);
+	}
+
+	public void showAlert(Stage stage, String errorMessage, String title, String headerText, AlertType type) {
+		Alert alert = new Alert(type);
 		alert.initOwner(stage);
-//		alert.setTitle("Invalid Fields");
-//		alert.setHeaderText("Please correct invalid fields");
+		// alert.setTitle("Invalid Fields");
+		// alert.setHeaderText("Please correct invalid fields");
 		alert.setTitle(title);
 		alert.setHeaderText(headerText);
 		alert.setContentText(errorMessage);
 
 		alert.showAndWait();
+	}
+	public void showWarning(Stage stage, String errorMessage, String title, String headerText) {
+		showAlert(stage, errorMessage, title, headerText, AlertType.WARNING);
+	}
+	public void showInformation(Stage stage, String message, String title, String headerText) {
+		showAlert(stage, message, title, headerText, AlertType.INFORMATION);
 	}
 }

@@ -9,14 +9,14 @@
 	<children>
 						<TableView fx:id="personTable" prefHeight="469.0" prefWidth="722.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<columns>
-								<TableColumn fx:id="isbnColumn" prefWidth="75.0" text="Checkout" />
-								<TableColumn fx:id="titleColumn" prefWidth="227.0" text="Due" />
-								<TableColumn fx:id="availabilityColumn" prefWidth="248.0" text="Copy Number" />
+								<TableColumn fx:id="checkoutColumn" prefWidth="75.0" text="Checkout" />
+								<TableColumn fx:id="dueColumn" prefWidth="227.0" text="Due" />
+								<TableColumn fx:id="copyNumberColumn" prefWidth="248.0" text="Copy Number" />
 							</columns>
 							<columnResizePolicy>
 								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							</columnResizePolicy>
 						</TableView>
-      <Button layoutX="327.0" layoutY="493.0" mnemonicParsing="false" onAction="#handleNewPerson" text="OK" />
+      <Button layoutX="327.0" layoutY="493.0" mnemonicParsing="false" onAction="#closeWindow" text="OK" />
 	</children>
 </AnchorPane>

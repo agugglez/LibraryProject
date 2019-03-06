@@ -127,6 +127,6 @@ public class CheckoutOverviewController extends BaseFxModalController {
 	@FXML
 	private void handleNewPerson() {
 
-		windowClose();
+		onWindowClose();
 	}
 }

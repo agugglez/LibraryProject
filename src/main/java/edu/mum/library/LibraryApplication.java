@@ -54,7 +54,7 @@ public class LibraryApplication extends Application {
 				BaseFxController controller = (BaseFxController) loader.getController();
 				stage.setUserData(new UserObjectForView(controller, param));
 				controller.setCurrentStage(stage);
-				stage.setOnHidden(e -> controller.windowClose());
+				stage.setOnHidden(e -> controller.onWindowClose());
 				controller.postInit();
 			}
 			return result;
