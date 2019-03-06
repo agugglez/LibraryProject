@@ -22,9 +22,21 @@ public class Book extends BaseEntityWithPrimaryKey<String> {
 
 	private String isbn;
 
+	public void setAvailability(int availability) {
+		this.availability = availability;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	private String title;
 
-	public Book(String title, String isbn, int availability, List<Author> authorList) {
+	public Book(String isbn, String title, int availability, List<Author> authorList) {
 		super();
 		this.title = title;
 		this.isbn = isbn;
@@ -42,6 +54,12 @@ public class Book extends BaseEntityWithPrimaryKey<String> {
 	public void addBookCopy() {
 		int index = LocalDate.now().getYear() * 10000 + LocalDate.now().getMonthValue() * 100 + (bookCopies.size() + 1);
 		addBookCopy(index);
+	}
+
+	public void addBookCopyList(int size) {
+		for (int i = 0; i < size; i++) {
+			addBookCopy();
+		}
 	}
 
 	private void addBookCopy(int index) {

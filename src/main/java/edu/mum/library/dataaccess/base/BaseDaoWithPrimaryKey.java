@@ -1,6 +1,9 @@
 package edu.mum.library.dataaccess.base;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import edu.mum.library.dataaccess.storage.PersistanceManager;
 import edu.mum.library.model.base.IPrimaryKeyGetter;
@@ -16,10 +19,8 @@ public abstract class BaseDaoWithPrimaryKey<T extends IPrimaryKeyGetter<ID>, ID>
 	@Override
 	public void save(T t) {
 		ID id = t.getPrimaryKey();
-		Optional<T> find = secretGetAll().stream().filter(e -> id.equals(e.getPrimaryKey())).findAny();
-		if (!find.isPresent()) {
-			super.insert(t);
-		}
+		delete(id);
+		super.insert(t);
 		PersistanceManager.saveDatabase();
 	}
 

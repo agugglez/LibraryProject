@@ -15,9 +15,8 @@ public class Member extends Person implements IPrimaryKeyGetter<String> {
 
 	public Member(String memberId, String firstName, String lastName, String phoneNumber) {
 		super(firstName, lastName, phoneNumber);
-		// TODO Auto-generated constructor stub
+		this.memberId = memberId;
 	}
-
 	public void checkoutBook(BookCopy bc) {
 		checkoutRecord.checkoutBook(this, bc);
 	}

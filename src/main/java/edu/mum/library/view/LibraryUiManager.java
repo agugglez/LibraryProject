@@ -3,6 +3,7 @@ package edu.mum.library.view;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.modelbb.Person;
+import edu.mum.library.view.dto.BookDto;
 import edu.mum.library.view.dto.MemberDto;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +42,37 @@ public class LibraryUiManager extends BaseUI {
 				.getUserData()).getController();
 		return controller.isOkClicked();
 	}
+
+	/**
+	 * Show a BookDto Dialog
+	 *
+	 * @param person
+	 * @return
+	 */
+	public boolean showBookEditDialog(BookDto person) {
+
+		// Create the dialog Stage.
+		Stage dialogStage = new Stage();
+		// Load the fxml file and create a new stage for the popup dialog.
+		// dialogStage.setUserData(person);
+		AnchorPane page = this.application.importLayout("/edu/mum/library/view/BookEditDialog.fxml", dialogStage,
+				person);
+
+		dialogStage.setTitle("Edit Book");
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initOwner(this.application.getPrimaryStage());
+		Scene scene = new Scene(page);
+		dialogStage.setScene(scene);
+
+		// scene.setUserData(person);
+		// dialogStage.setUserData(person);
+		// Show the dialog and wait until the user closes it
+		dialogStage.showAndWait();
+		BaseFxModalController controller = (BaseFxModalController) ((edu.mum.library.view.UserObjectForView) dialogStage
+				.getUserData()).getController();
+		return controller.isOkClicked();
+	}
+
 
 	/**
 	 * Show a person Dialog

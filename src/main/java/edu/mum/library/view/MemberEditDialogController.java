@@ -5,6 +5,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Address;
 import edu.mum.library.model.Member;
 import edu.mum.library.service.LibraryService;
@@ -24,6 +25,7 @@ public class MemberEditDialogController extends BaseFxModalController {
 		this.person = (MemberDto) ((UserObjectForView) this.getCurrentStage().getUserData()).getParameter();
 		if (person != null) {
 			memberIdField.setText(person.getMemberId());
+			memberIdField.setDisable(true);
 			firstNameField.setText(person.getFirstName());
 			lastNameField.setText(person.getLastName());
 			streetField.setText(person.getStreet());
@@ -58,10 +60,12 @@ public class MemberEditDialogController extends BaseFxModalController {
 	private boolean okClicked = false;
 	@Autowired
 	private LibraryService libraryService;
+	@Autowired
+	private MemberDao memberDao;
 
 	/**
-	 * Initializes the controller class. This method is automatically called after
-	 * the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called
+	 * after the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
@@ -92,6 +96,19 @@ public class MemberEditDialogController extends BaseFxModalController {
 				person.setCity(cityField.getText());
 				person.setPhoneNumber(phoneNumberField.getText());
 				person.setState(stateField.getText());
+				// TODO
+				// 				// Read from database to update
+				Member memeber = memberDao.readById(person.getMemberId());
+
+				memeber.setFirstName(firstNameField.getText());
+				memeber.setLastName(lastNameField.getText());
+				memeber.getAddress().setStreet(streetField.getText());
+				memeber.getAddress().setZipcode(postalCodeField.getText());
+				memeber.getAddress().setCity(cityField.getText());
+				memeber.setPhoneNumber(phoneNumberField.getText());
+				memeber.getAddress().setState(stateField.getText());
+				memberDao.save(memeber);
+
 			} else {
 				Member member = new Member(memberIdField.getText(), firstNameField.getText(), lastNameField.getText(),
 						phoneNumberField.getText());

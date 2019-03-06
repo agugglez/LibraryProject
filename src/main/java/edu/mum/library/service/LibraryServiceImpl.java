@@ -54,7 +54,8 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public void addBook(Book book) {
+	public void addBook(Book book,int copies) {
+		book.addBookCopyList(copies);
 		bookDao.insert(book);
 	}
 

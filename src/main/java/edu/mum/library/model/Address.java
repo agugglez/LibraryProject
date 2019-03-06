@@ -8,10 +8,26 @@ public class Address extends BaseEntity {
 	 *
 	 */
 	private static final long serialVersionUID = -7402787440134026375L;
-	private final String street;
-	private final String city;
-	private final String state;
-	private final String zipcode;
+	private String street;
+	private String city;
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	private String state;
+	private String zipcode;
 
 	public Address(String street, String city, String state, String zipcode) {
 		super();

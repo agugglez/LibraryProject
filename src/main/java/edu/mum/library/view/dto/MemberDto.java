@@ -1,10 +1,15 @@
 package edu.mum.library.view.dto;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
+
+import edu.mum.library.model.Address;
 import edu.mum.library.model.Member;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class MemberDto {
+public class MemberDto extends BaseDto<Member> {
 
 	public void setMemberId(String memberId) {
 		this.memberId.set(memberId);
@@ -52,6 +57,18 @@ public class MemberDto {
 		return memberId.getValue();
 	}
 
+	public StringProperty firstNameProperty() {
+		return firstName;
+	}
+
+	public StringProperty lastNameProperty() {
+		return lastName;
+	}
+
+	public StringProperty memberIdProperty() {
+		return memberId;
+	}
+
 	public String getFirstName() {
 		return firstName.getValue();
 	}
@@ -90,5 +107,18 @@ public class MemberDto {
 		this.city = new SimpleStringProperty(member.getAddress().getCity());
 		this.state = new SimpleStringProperty(member.getAddress().getState());
 		this.zipcode = new SimpleStringProperty(member.getAddress().getZipcode());
+	}
+
+	public Member toMember() {
+		Member member = new Member(this.getMemberId(), this.getFirstName(), this.getLastName(), this.getPhoneNumber());
+		try {
+			BeanUtils.copyProperties(member, this);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		member.setPersonAddress(new Address(this.getStreet(), this.getCity(), this.getState(), this.getZipcode()));
+		return member;
 	}
 }

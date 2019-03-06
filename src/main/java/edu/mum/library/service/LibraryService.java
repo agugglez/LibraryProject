@@ -11,7 +11,7 @@ public interface LibraryService {
 
 	void addBookCopy(Book book);
 
-	void addBook(Book book);
+	void addBook(Book book, int copies);
 
 	void printCheckoutRecord(String memberId);
 }

@@ -33,16 +33,16 @@
             <Label text="City" GridPane.rowIndex="4" />
             <Label text="Postal Code" GridPane.rowIndex="6" />
             <Label text="Phone number" GridPane.rowIndex="7" />
+            <TextField fx:id="memberIdField" GridPane.columnIndex="1" />
             <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="streetField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="stateField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="Member Id" />
-            <TextField fx:id="memberIdField" GridPane.columnIndex="1" />
             <Label text="State" GridPane.rowIndex="5" />
-            <TextField fx:id="stateField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Button layoutX="301.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleOk" text="OK" textOverrun="CLIP" AnchorPane.bottomAnchor="15.0">

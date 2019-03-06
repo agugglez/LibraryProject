@@ -28,6 +28,7 @@ public class RootController extends BaseFxController {
 		librarianMenu.setVisible(true);
 
 		sessionManager.logout();
+		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(null);
 		if(libraryUiManager.showLoginDialog())
 		{
 			menuInit();
@@ -59,5 +60,11 @@ public class RootController extends BaseFxController {
 
 		// Set person overview into the center of root layout.
 		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(personOverview);
+	}
+	public void showBookUi(){
+		AnchorPane view = this.application.importLayout("/edu/mum/library/view/BookOverview.fxml");
+
+		// Set person overview into the center of root layout.
+		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
 }

@@ -9,15 +9,18 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.dataaccess.MemberDao;
-import edu.mum.library.service.LibraryService;
 import edu.mum.library.view.dto.MemberDto;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -28,7 +31,11 @@ public class MemberOverviewController extends BaseFxController {
 	private TableColumn<MemberDto, String> firstNameColumn;
 	@FXML
 	private TableColumn<MemberDto, String> lastNameColumn;
+	@FXML
+	private TableColumn<MemberDto, String> memberIdColumn;
 
+	@FXML
+	private Label memberIdLabel;
 	@FXML
 	private Label firstNameLabel;
 	@FXML
@@ -40,16 +47,15 @@ public class MemberOverviewController extends BaseFxController {
 	@FXML
 	private Label cityLabel;
 	@FXML
-	private Label birthdayLabel;
-
-	@Autowired
-	private FxViewManager javaFxHelper;
+	private Label stateLabel;
+	@FXML
+	private Label phoneNumberLabel;
 
 	@Autowired
 	private LibraryUiManager libraryUiManager;
 
-	@Autowired
-	private LibraryService libraryService;
+	// @Autowired
+	// private LibraryService libraryService;
 
 	@Autowired
 	private MemberDao memberDao;
@@ -77,21 +83,33 @@ public class MemberOverviewController extends BaseFxController {
 	}
 
 	private void preJava8() {
-//		firstNameColumn.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
+
+		firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+//		firstNameColumn
+//				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
 //
-//			@Override
-//			public ObservableValue<String> call(CellDataFeatures<Person, String> param) {
-//				return param.getValue().firstNameProperty();
-//			}
-//		});
-//
-//		lastNameColumn.setCellValueFactory(new Callback<CellDataFeatures<Person, String>, ObservableValue<String>>() {
-//
-//			@Override
-//			public ObservableValue<String> call(CellDataFeatures<Person, String> param) {
-//				return param.getValue().lastNameProperty();
-//			}
-//		});
+//					@Override
+//					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
+//						return param.getValue().firstNameProperty();
+//					}
+//				});
+
+		lastNameColumn
+				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
+
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
+						return param.getValue().lastNameProperty();
+					}
+				});
+		memberIdColumn
+				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
+
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
+						return param.getValue().memberIdProperty();
+					}
+				});
 	}
 
 	private void showPersonDetails(MemberDto person) {
@@ -102,9 +120,10 @@ public class MemberOverviewController extends BaseFxController {
 			streetLabel.setText(person.getStreet());
 			postalCodeLabel.setText(person.getZipcode());
 			cityLabel.setText(person.getCity());
+			memberIdLabel.setText(person.getMemberId());
+			stateLabel.setText(person.getState());
 
-			// TODO: We need a way to convert the birthday into a String!
-			// birthdayLabel.setText(...);
+			phoneNumberLabel.setText(person.getPhoneNumber());
 		} else {
 			// Person is null, remove all the text.
 			firstNameLabel.setText("");
@@ -112,7 +131,9 @@ public class MemberOverviewController extends BaseFxController {
 			streetLabel.setText("");
 			postalCodeLabel.setText("");
 			cityLabel.setText("");
-			birthdayLabel.setText("");
+			phoneNumberLabel.setText("");
+			memberIdLabel.setText("");
+			stateLabel.setText("");
 		}
 	}
 
@@ -123,6 +144,8 @@ public class MemberOverviewController extends BaseFxController {
 	private void handleDeletePerson() {
 		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
+			String memberId = personTable.getItems().get(selectedIndex).getMemberId();
+			this.memberDao.delete(memberId);
 			personTable.getItems().remove(selectedIndex);
 		} else {
 			// Nothing selected.
@@ -156,10 +179,10 @@ public class MemberOverviewController extends BaseFxController {
 	private void handleEditPerson() {
 		MemberDto selectedPerson = personTable.getSelectionModel().getSelectedItem();
 		if (selectedPerson != null) {
-//			boolean okClicked = libraryUiManager.showPersonEditDialog(selectedPerson);
-//			if (okClicked) {
-//				showPersonDetails(selectedPerson);
-//			}
+			boolean okClicked = libraryUiManager.showMemberEditDialog(selectedPerson);
+			if (okClicked) {
+				showPersonDetails(selectedPerson);
+			}
 
 		} else {
 			// Nothing selected.
