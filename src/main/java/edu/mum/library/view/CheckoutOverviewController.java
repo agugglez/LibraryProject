@@ -11,13 +11,10 @@ import org.springframework.stereotype.Component;
 
 import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Member;
-import edu.mum.library.view.dto.BookDto;
+import edu.mum.library.view.base.BaseFxModalController;
 import edu.mum.library.view.dto.CheckoutEntryDto;
-import edu.mum.library.view.dto.MemberDto;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;

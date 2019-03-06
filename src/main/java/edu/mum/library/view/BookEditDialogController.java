@@ -60,12 +60,6 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 	private void handleOk() {
 		if (isInputValid()) {
 			if (this.entityDto != null) {
-				// person.setMemberId(memberIdField.getText());
-				// isbnField.setText(person.getIsbn());
-				// titleField.setText(person.getTitle());
-				// availabilityField.setText(Integer.toString(person.getAvailability()));
-				// copiesField.setDisable(true);
-				// copiesField.setText(Integer.toString(person.getNumberofCopies()));
 				this.fromViewToDto();
 				// Read from database to update
 				Book book = bookDao.readById(this.entityDto.getIsbn());

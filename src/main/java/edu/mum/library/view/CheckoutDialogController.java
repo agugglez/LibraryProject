@@ -1,7 +1,5 @@
 package edu.mum.library.view;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -10,10 +8,8 @@ import org.springframework.stereotype.Component;
 import edu.mum.library.common.LibraryException;
 import edu.mum.library.dataaccess.BookDao;
 import edu.mum.library.dataaccess.MemberDao;
-import edu.mum.library.model.Book;
-import edu.mum.library.model.Member;
 import edu.mum.library.service.LibraryService;
-import edu.mum.library.view.dto.BookDto;
+import edu.mum.library.view.base.BaseFxModalController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
