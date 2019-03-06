@@ -64,7 +64,7 @@ public class Book extends BaseEntityWithPrimaryKey<String> {
 
 	private void addBookCopy(int index) {
 		String generated_id = this.getIsbn() + "_copy_" + index;
-		bookCopies.add(new BookCopy(generated_id, true));
+		bookCopies.add(new BookCopy(this, generated_id, true));
 	}
 
 	public int getAvailability() {

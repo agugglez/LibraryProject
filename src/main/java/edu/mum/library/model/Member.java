@@ -9,14 +9,16 @@ public class Member extends Person implements IPrimaryKeyGetter<String> {
 	 *
 	 */
 	private static final long serialVersionUID = -9033791289938541323L;
-	private CheckoutRecord checkoutRecord;
+	private CheckoutRecord checkoutRecord = new CheckoutRecord();;
 
 	private String memberId;
 
 	public Member(String memberId, String firstName, String lastName, String phoneNumber) {
 		super(firstName, lastName, phoneNumber);
 		this.memberId = memberId;
+
 	}
+
 	public void checkoutBook(BookCopy bc) {
 		checkoutRecord.checkoutBook(this, bc);
 	}

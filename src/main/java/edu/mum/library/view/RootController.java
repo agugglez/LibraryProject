@@ -28,10 +28,11 @@ public class RootController extends BaseFxController {
 		librarianMenu.setVisible(true);
 
 		sessionManager.logout();
-		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(null);
-		if(libraryUiManager.showLoginDialog())
-		{
+		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(null);
+		if (libraryUiManager.showLoginDialog()) {
 			menuInit();
+		} else {
+			Platform.exit();
 		}
 	}
 
@@ -55,23 +56,24 @@ public class RootController extends BaseFxController {
 		}
 	}
 
-	public void showMemberUi(){
+	public void showMemberUi() {
 		AnchorPane personOverview = this.application.importLayout("/edu/mum/library/view/MemberOverview.fxml");
 
 		// Set person overview into the center of root layout.
-		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(personOverview);
+		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(personOverview);
 	}
-	public void showBookUi(){
+
+	public void showBookUi() {
 		AnchorPane view = this.application.importLayout("/edu/mum/library/view/BookOverview.fxml");
 
 		// Set person overview into the center of root layout.
-		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(view);
+		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
 
-	public void showCheckoutUi(){
+	public void showCheckoutUi() {
 		AnchorPane view = this.application.importLayout("/edu/mum/library/view/CheckoutDialog.fxml");
 
 		// Set person overview into the center of root layout.
-		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(view);
+		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
 }

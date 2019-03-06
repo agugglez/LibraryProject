@@ -33,9 +33,9 @@ public class BookOverviewController extends BaseFxController {
 	@FXML
 	private TableColumn<BookDto, String> titleColumn;
 	@FXML
-	private TableColumn<BookDto, String> availabilityColumn;
+	private TableColumn<BookDto, Integer> availabilityColumn;
 	@FXML
-	private TableColumn<BookDto, String> numberofCopiesColumn;
+	private TableColumn<BookDto, Integer> numberofCopiesColumn;
 
 	@Autowired
 	private LibraryUiManager libraryUiManager;

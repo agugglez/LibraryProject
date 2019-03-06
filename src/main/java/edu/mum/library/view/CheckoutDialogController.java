@@ -7,6 +7,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import edu.mum.library.common.LibraryException;
 import edu.mum.library.dataaccess.BookDao;
 import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Book;
@@ -21,6 +22,9 @@ import javafx.scene.control.TextField;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CheckoutDialogController extends BaseFxModalController {
+
+	@Autowired
+	private LibraryUiManager libraryUiManager;
 
 	@Override
 	public void postInit() {
@@ -80,14 +84,19 @@ public class CheckoutDialogController extends BaseFxModalController {
 	 */
 	@FXML
 	private void handleOk() {
-		if (true) {// isInputValid()
-			// SEARCH MEMBER EXISTS
+		if (isInputValid()) {//
 
-			Member targetMember = memberDao.readById(isbnField.getText());
+			try {
+				libraryService.checkoutBook(memberIdField.getText(), isbnField.getText());
 
-			if (targetMember == null)
-				fxViewManager.showError(this.getCurrentStage(), "Member ID not found", "Error",
-						"Database null value");
+				libraryUiManager.showCheckoutOverviewDialog(memberIdField.getText());
+
+			} catch (LibraryException e) {
+				fxViewManager.showError(this.getCurrentStage(), e.getMessage(), "Error",
+						"Database error");
+			}
+
+			return;
 
 			// SEARCH ISBN EXISTS
 
@@ -126,17 +135,11 @@ public class CheckoutDialogController extends BaseFxModalController {
 			// Integer.parseInt(copiesField.getText()));
 			//
 			// }
-			okClicked = true;
-			this.getCurrentStage().close();
-		}
-	}
 
-	/**
-	 * Called when the user clicks cancel.
-	 */
-	@FXML
-	private void handleCancel() {
-		this.getCurrentStage().close();
+
+//			okClicked = true;
+//			this.getCurrentStage().close();
+		}
 	}
 
 	/**

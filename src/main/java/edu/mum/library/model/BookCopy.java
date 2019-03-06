@@ -17,8 +17,9 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 	private Book originalBook;
 
 	// package
-	BookCopy(String copyNumber, Boolean isAvailable) {
+	BookCopy(Book originalBook, String copyNumber, Boolean isAvailable) {
 		super();
+		this.originalBook = originalBook;
 		this.copyNumber = copyNumber;
 		this.isAvailable = isAvailable;
 	}

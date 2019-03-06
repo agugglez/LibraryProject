@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 @Component
 public class LibraryUiManager extends BaseUI {
 
+	public boolean showCheckoutOverviewDialog(String memberId) {
+
+		return showDialog("/edu/mum/library/view/CheckoutRecordOverview.fxml", "Checkout Record", memberId);
+	}
 	/**
 	 * Show a MemberDto Dialog
 	 *

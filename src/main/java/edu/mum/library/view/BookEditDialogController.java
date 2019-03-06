@@ -22,14 +22,14 @@ public class BookEditDialogController extends BaseFxModalController {
 
 	@Override
 	public void postInit() {
-		this.person = (BookDto) ((UserObjectForView) this.getCurrentStage().getUserData()).getParameter();
-		if (person != null) {
-			isbnIdField.setText(person.getIsbn());
+		this.bookDto = (BookDto) ((UserObjectForView) this.getCurrentStage().getUserData()).getParameter();
+		if (bookDto != null) {
+			isbnIdField.setText(bookDto.getIsbn());
 			isbnIdField.setDisable(true);
-			titleField.setText(person.getTitle());
-			availabilityField.setText(Integer.toString(person.getAvailability()));
+			titleField.setText(bookDto.getTitle());
+			availabilityField.setText(Integer.toString(bookDto.getAvailability()));
 			copiesField.setDisable(true);
-			copiesField.setText(Integer.toString(person.getNumberofCopies()));
+			copiesField.setText(Integer.toString(bookDto.getNumberofCopies()));
 			// phoneNumberField.setPromptText("dd.mm.yyyy");
 		}
 	}
@@ -43,7 +43,7 @@ public class BookEditDialogController extends BaseFxModalController {
 	@FXML
 	private TextField copiesField;
 
-	private BookDto person;
+	private BookDto bookDto;
 
 	private boolean okClicked = false;
 	@Autowired
@@ -75,18 +75,18 @@ public class BookEditDialogController extends BaseFxModalController {
 	@FXML
 	private void handleOk() {
 		if (true) {// isInputValid()
-			if (person != null) {
+			if (bookDto != null) {
 				// person.setMemberId(memberIdField.getText());
 				// isbnIdField.setText(person.getIsbn());
 				// titleField.setText(person.getTitle());
 				// availabilityField.setText(Integer.toString(person.getAvailability()));
 				// copiesField.setDisable(true);
 				// copiesField.setText(Integer.toString(person.getNumberofCopies()));
-				person.setIsbn(isbnIdField.getText());
-				person.setTitle(titleField.getText());
-				person.setAvailability(Integer.parseInt(availabilityField.getText()));
+				bookDto.setIsbn(isbnIdField.getText());
+				bookDto.setTitle(titleField.getText());
+				bookDto.setAvailability(Integer.parseInt(availabilityField.getText()));
 				// Read from database to update
-				Book book = bookDao.readById(person.getIsbn());
+				Book book = bookDao.readById(bookDto.getIsbn());
 				book.setIsbn(isbnIdField.getText());
 				book.setTitle(titleField.getText());
 				book.setAvailability(Integer.parseInt(availabilityField.getText()));
