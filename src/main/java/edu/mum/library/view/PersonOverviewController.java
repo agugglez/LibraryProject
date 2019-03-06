@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import edu.mum.library.modelbb.Person;
 import edu.mum.library.servicebb.PersonService;
+import edu.mum.library.view.base.BaseFxController;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
