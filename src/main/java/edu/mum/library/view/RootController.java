@@ -67,4 +67,11 @@ public class RootController extends BaseFxController {
 		// Set person overview into the center of root layout.
 		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
+
+	public void showCheckoutUi(){
+		AnchorPane view = this.application.importLayout("/edu/mum/library/view/CheckoutDialog.fxml");
+
+		// Set person overview into the center of root layout.
+		((BorderPane)this.getCurrentStage().getScene().getRoot()).setCenter(view);
+	}
 }

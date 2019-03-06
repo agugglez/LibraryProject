@@ -25,7 +25,7 @@
 				</Menu>
 				<Menu fx:id="librarianMenu" mnemonicParsing="false" text="Librarian">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Checkout book" />
+						<MenuItem mnemonicParsing="false" onAction="#showCheckoutUi" text="Checkout book" />
 						<MenuItem mnemonicParsing="false" text="Search member" />
 						<MenuItem mnemonicParsing="false" text="Check overdues" />
 					</items>

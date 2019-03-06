@@ -12,9 +12,9 @@ public class StaffTableMock {
 
 	public static List<Staff> getStaffList() {
 		Staff staff0 = new Staff("123", "123", AuthorizationLevel.ADMIN);
-		Staff staff1 = new Staff("augusto", "otsugua", AuthorizationLevel.ADMIN);
-		Staff staff2 = new Staff("dong", "gnod", AuthorizationLevel.LIBRARIAN);
-		Staff staff3 = new Staff("andrew", "werdna", AuthorizationLevel.BOTH);
+		Staff staff1 = new Staff("admin", "admin", AuthorizationLevel.ADMIN);
+		Staff staff2 = new Staff("lib", "lib", AuthorizationLevel.LIBRARIAN);
+		Staff staff3 = new Staff("both", "both", AuthorizationLevel.BOTH);
 
 		return Arrays.asList(staff0, staff1, staff2, staff3);
 	}
