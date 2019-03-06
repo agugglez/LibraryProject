@@ -1,7 +1,10 @@
-package edu.mum.library.view;
+package edu.mum.library.view.base;
 
 public abstract class BaseFxModalController extends BaseFxController {
+	protected boolean okClicked = false;
+
 	public boolean isOkClicked() {
-		return false;
+		return okClicked;
 	}
+
 }

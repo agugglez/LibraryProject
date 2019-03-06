@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import edu.mum.library.view.BaseFxController;
 import edu.mum.library.view.LibraryUiManager;
 import edu.mum.library.view.RootController;
 import edu.mum.library.view.UserObjectForView;
+import edu.mum.library.view.base.BaseFxController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

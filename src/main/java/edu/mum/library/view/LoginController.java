@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.service.LoginService;
+import edu.mum.library.view.base.BaseFxModalController;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

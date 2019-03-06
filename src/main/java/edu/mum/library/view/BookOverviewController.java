@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.dataaccess.BookDao;
+import edu.mum.library.view.base.BaseFxController;
 import edu.mum.library.view.dto.BookDto;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -71,7 +72,7 @@ public class BookOverviewController extends BaseFxController {
 		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("availability"));
-		numberofCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("numberofCopies"));
+		numberofCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("copies"));
 //		firstNameColumn
 //				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
 //

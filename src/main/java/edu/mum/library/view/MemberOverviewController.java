@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.dataaccess.MemberDao;
+import edu.mum.library.view.base.BaseFxController;
 import edu.mum.library.view.dto.MemberDto;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

@@ -35,4 +35,7 @@ public class UserObjectForView {
 	public static Object getControllerFromStage(Stage stage) {
 		return getUserObjectForViewFromStage(stage).getController();
 	}
+	public static Object getParamFromStage(Stage stage) {
+		return getUserObjectForViewFromStage(stage).getParameter();
+	}
 }
