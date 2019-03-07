@@ -1,15 +1,19 @@
 package edu.mum.library.view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import edu.mum.library.common.LibraryException;
 import edu.mum.library.dataaccess.BookDao;
+import edu.mum.library.model.Author;
 import edu.mum.library.model.Book;
 import edu.mum.library.service.LibraryService;
+import edu.mum.library.view.base.BaseFxModalController;
 import edu.mum.library.view.dto.BookDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -43,6 +47,9 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 	private LibraryService libraryService;
 	@Autowired
 	private BookDao bookDao;
+	@Autowired
+	private LibraryUiManager libraryUiManager;
+	private List<Author> authorList = new ArrayList<>();
 
 	/**
 	 * Initializes the controller class. This method is automatically called after
@@ -58,25 +65,31 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 	 */
 	@FXML
 	private void handleOk() {
-		if (isInputValid()) {
-			if (this.entityDto != null) {
-				this.fromViewToDto();
-				// Read from database to update
-				Book book = bookDao.readById(this.entityDto.getIsbn());
-				book.setIsbn(isbnField.getText());
-				book.setTitle(titleField.getText());
-				book.setAvailability(Integer.parseInt(availabilityField.getText()));
-				bookDao.save(book);
+		try {
+			if (isInputValid()) {
+				if (this.entityDto != null) {
+					this.fromViewToDto();
+					// Read from database to update
+					Book book = bookDao.readById(this.entityDto.getIsbn());
+					book.setIsbn(isbnField.getText());
+					book.setTitle(titleField.getText());
+					book.setAvailability(Integer.parseInt(availabilityField.getText()));
+					book.getBookAuthors().addAll(authorList);
+					bookDao.save(book);
 
-			} else {
-				Book book = new Book(isbnField.getText(), titleField.getText(),
-						Integer.parseInt(availabilityField.getText()), new ArrayList<>());
+				} else {
+					Book book = new Book(isbnField.getText(), titleField.getText(),
+							Integer.parseInt(availabilityField.getText()), new ArrayList<>(authorList));
 
-				libraryService.addBook(book, Integer.parseInt(copiesField.getText()));
+					libraryService.addBook(book, Integer.parseInt(copiesField.getText()));
 
+				}
+				okClicked = true;
+				this.getCurrentStage().close();
 			}
-			okClicked = true;
-			this.getCurrentStage().close();
+		} catch (LibraryException ex) {
+			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Book Management",
+					"Please correct Error");
 		}
 	}
 
@@ -100,6 +113,19 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 		} catch (NumberFormatException e) {
 			sb.append("No valid copies (must be an integer)!\n");
 		}
+		if (this.entityDto == null) {
+			if (authorList.size() == 0) {
+				sb.append("Please add author for the book!\n");
+			}
+		}
 		return sb.toString();
+	}
+
+	@FXML
+	public void addAuthor() {
+		BaseFxModalController result = libraryUiManager.showAuthorEditDialogDialog();
+		if (result.isOkClicked()) {
+			authorList.add((Author) result.getReturnResult());
+		}
 	}
 }

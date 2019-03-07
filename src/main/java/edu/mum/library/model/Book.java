@@ -2,7 +2,6 @@ package edu.mum.library.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,11 +71,11 @@ public class Book extends BaseEntityWithPrimaryKey<String> {
 	}
 
 	public List<Author> getBookAuthors() {
-		return Collections.unmodifiableList(bookAuthors);
+		return bookAuthors;
 	}
 
 	public List<BookCopy> getBookCopies() {
-		return Collections.unmodifiableList(bookCopies);
+		return bookCopies;
 	}
 
 	public String getIsbn() {

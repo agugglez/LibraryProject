@@ -14,10 +14,16 @@ import javafx.stage.Stage;
 @Component
 public class LibraryUiManager extends BaseUI {
 
+	public BaseFxModalController showAuthorEditDialogDialog() {
+
+		return showDialogReturnController("/edu/mum/library/view/AuthorEditDialog.fxml", "Add Author", null);
+	}
+
 	public boolean showCheckoutOverviewDialog(String memberId) {
 
 		return showDialog("/edu/mum/library/view/CheckoutRecordOverview.fxml", "Checkout Record", memberId);
 	}
+
 	/**
 	 * Show a MemberDto Dialog
 	 *
@@ -64,6 +70,11 @@ public class LibraryUiManager extends BaseUI {
 	}
 
 	private boolean showDialog(String layoutPath, String title, Object param) {
+		BaseFxModalController controller = showDialogReturnController(layoutPath, title, param);
+		return controller.isOkClicked();
+	}
+
+	private BaseFxModalController showDialogReturnController(String layoutPath, String title, Object param) {
 		Stage dialogStage = new Stage();
 		// Load the fxml file and create a new stage for the popup dialog.
 		AnchorPane page = this.application.importLayout(layoutPath, dialogStage, param);
@@ -77,6 +88,6 @@ public class LibraryUiManager extends BaseUI {
 		dialogStage.showAndWait();
 		BaseFxModalController controller = (BaseFxModalController) UserObjectForView
 				.getControllerFromStage(dialogStage);
-		return controller.isOkClicked();
+		return controller;
 	}
 }

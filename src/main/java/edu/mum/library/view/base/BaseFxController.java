@@ -41,7 +41,18 @@ public abstract class BaseFxController extends BaseUI {
 	public void postInit() {
 
 	}
-	public void closeWindow(){
+
+	public void closeWindow() {
 		this.getCurrentStage().close();
+	}
+
+	protected Object returnResult;
+
+	public Object getReturnResult() {
+		return returnResult;
+	}
+
+	protected void setReturnResult(Object returnResult) {
+		this.returnResult = returnResult;
 	}
 }

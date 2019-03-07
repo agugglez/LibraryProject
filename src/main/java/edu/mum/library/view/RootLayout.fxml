@@ -20,7 +20,6 @@
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#showMemberUi" text="Member Management" />
 						<MenuItem mnemonicParsing="false" onAction="#showBookUi" text="Book Management" />
-						<MenuItem mnemonicParsing="false" text="Search book" />
 					</items>
 				</Menu>
 				<Menu fx:id="librarianMenu" mnemonicParsing="false" text="Librarian">

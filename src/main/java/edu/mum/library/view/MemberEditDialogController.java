@@ -6,6 +6,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import edu.mum.library.common.LibraryException;
 import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Address;
 import edu.mum.library.model.Member;
@@ -29,7 +30,7 @@ public class MemberEditDialogController extends LibraryFxModalEditController<Mem
 	}
 
 	@FXML
-//	@NoAutoSettingGetting
+	// @NoAutoSettingGetting
 	private TextField memberIdField;
 	@FXML
 	private TextField firstNameField;
@@ -70,32 +71,36 @@ public class MemberEditDialogController extends LibraryFxModalEditController<Mem
 	 */
 	@FXML
 	private void handleOk() {
-		if (isInputValid()) {
-			if (entityDto != null) {
-				// person.setMemberId(memberIdField.getText());
-				fromViewToDto();
-				// Read from database to update
-				Member memeber = memberDao.readById(entityDto.getMemberId());
+		try {
+			if (isInputValid()) {
+				if (entityDto != null) {
+					// person.setMemberId(memberIdField.getText());
+					fromViewToDto();
+					// Read from database to update
+					Member memeber = memberDao.readById(entityDto.getMemberId());
 
-				memeber.setFirstName(firstNameField.getText());
-				memeber.setLastName(lastNameField.getText());
-				memeber.getAddress().setStreet(streetField.getText());
-				memeber.getAddress().setZipcode(zipcodeField.getText());
-				memeber.getAddress().setCity(cityField.getText());
-				memeber.setPhoneNumber(phoneNumberField.getText());
-				memeber.getAddress().setState(stateField.getText());
-				memberDao.save(memeber);
+					memeber.setFirstName(firstNameField.getText());
+					memeber.setLastName(lastNameField.getText());
+					memeber.getAddress().setStreet(streetField.getText());
+					memeber.getAddress().setZipcode(zipcodeField.getText());
+					memeber.getAddress().setCity(cityField.getText());
+					memeber.setPhoneNumber(phoneNumberField.getText());
+					memeber.getAddress().setState(stateField.getText());
+					memberDao.save(memeber);
 
-			} else {
-				Member member = new Member(memberIdField.getText(), firstNameField.getText(), lastNameField.getText(),
-						phoneNumberField.getText());
-				member.setPersonAddress(new Address(streetField.getText(), cityField.getText(), stateField.getText(),
-						zipcodeField.getText()));
-				libraryService.addMember(member);
+				} else {
+					Member member = new Member(memberIdField.getText(), firstNameField.getText(),
+							lastNameField.getText(), phoneNumberField.getText());
+					member.setPersonAddress(new Address(streetField.getText(), cityField.getText(),
+							stateField.getText(), zipcodeField.getText()));
+					libraryService.addMember(member);
 
+				}
+				okClicked = true;
+				this.getCurrentStage().close();
 			}
-			okClicked = true;
-			this.getCurrentStage().close();
+		} catch (LibraryException ex) {
+			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Member Management", "Please correct Error");
 		}
 	}
 
