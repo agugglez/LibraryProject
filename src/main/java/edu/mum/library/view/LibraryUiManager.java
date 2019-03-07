@@ -2,7 +2,6 @@ package edu.mum.library.view;
 
 import org.springframework.stereotype.Component;
 
-import edu.mum.library.modelbb.Person;
 import edu.mum.library.view.base.BaseFxModalController;
 import edu.mum.library.view.dto.BookDto;
 import edu.mum.library.view.dto.MemberDto;
@@ -48,17 +47,6 @@ public class LibraryUiManager extends BaseUI {
 	public boolean showBookEditDialog(BookDto person) {
 
 		return showDialog("/edu/mum/library/view/BookEditDialog.fxml", "Edit Book", person);
-	}
-
-	/**
-	 * Show a person Dialog
-	 *
-	 * @param person
-	 * @return
-	 */
-	public boolean showPersonEditDialog(Person person) {
-
-		return showDialog("/edu/mum/library/view/PersonEditDialog.fxml", "Edit", person);
 	}
 
 	/**
