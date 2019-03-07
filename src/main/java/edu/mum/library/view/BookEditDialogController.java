@@ -8,6 +8,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import edu.mum.library.common.LibraryException;
 import edu.mum.library.dataaccess.BookDao;
 import edu.mum.library.model.Author;
 import edu.mum.library.model.Book;
@@ -64,26 +65,31 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 	 */
 	@FXML
 	private void handleOk() {
-		if (isInputValid()) {
-			if (this.entityDto != null) {
-				this.fromViewToDto();
-				// Read from database to update
-				Book book = bookDao.readById(this.entityDto.getIsbn());
-				book.setIsbn(isbnField.getText());
-				book.setTitle(titleField.getText());
-				book.setAvailability(Integer.parseInt(availabilityField.getText()));
-				book.getBookAuthors().addAll(authorList);
-				bookDao.save(book);
+		try {
+			if (isInputValid()) {
+				if (this.entityDto != null) {
+					this.fromViewToDto();
+					// Read from database to update
+					Book book = bookDao.readById(this.entityDto.getIsbn());
+					book.setIsbn(isbnField.getText());
+					book.setTitle(titleField.getText());
+					book.setAvailability(Integer.parseInt(availabilityField.getText()));
+					book.getBookAuthors().addAll(authorList);
+					bookDao.save(book);
 
-			} else {
-				Book book = new Book(isbnField.getText(), titleField.getText(),
-						Integer.parseInt(availabilityField.getText()), new ArrayList<>(authorList));
+				} else {
+					Book book = new Book(isbnField.getText(), titleField.getText(),
+							Integer.parseInt(availabilityField.getText()), new ArrayList<>(authorList));
 
-				libraryService.addBook(book, Integer.parseInt(copiesField.getText()));
+					libraryService.addBook(book, Integer.parseInt(copiesField.getText()));
 
+				}
+				okClicked = true;
+				this.getCurrentStage().close();
 			}
-			okClicked = true;
-			this.getCurrentStage().close();
+		} catch (LibraryException ex) {
+			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Book Management",
+					"Please correct Error");
 		}
 	}
 

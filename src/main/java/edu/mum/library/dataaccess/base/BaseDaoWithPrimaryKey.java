@@ -2,6 +2,7 @@ package edu.mum.library.dataaccess.base;
 
 import java.util.Optional;
 
+import edu.mum.library.common.LibraryException;
 import edu.mum.library.dataaccess.storage.PersistanceManager;
 import edu.mum.library.model.base.IPrimaryKeyGetter;
 
@@ -29,7 +30,8 @@ public abstract class BaseDaoWithPrimaryKey<T extends IPrimaryKeyGetter<ID>, ID>
 			super.insert(t);
 			PersistanceManager.saveDatabase();
 		} else {
-			throw new RuntimeException(this.getTableName() + ": " + " Record existed: " + t.getPrimaryKey());
+			throw new LibraryException(
+					"Record exists in the table: " + this.getTableName() + ", key:" + t.getPrimaryKey());
 		}
 	}
 
