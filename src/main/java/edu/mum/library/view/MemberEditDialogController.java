@@ -90,7 +90,7 @@ public class MemberEditDialogController extends LibraryFxModalEditController<Mem
 				this.getCurrentStage().close();
 			}
 		} catch (LibraryException ex) {
-			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Member Management",
+			this.fxViewManager.showError(getCurrentStage(), ex.getMessage(), "Member Management",
 					"Please correct Error");
 		}
 	}

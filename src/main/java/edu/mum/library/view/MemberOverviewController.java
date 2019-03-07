@@ -157,7 +157,7 @@ public class MemberOverviewController extends BaseFxController {
 			}
 
 		} else {
-			this.fxViewManager.showWarning(getCurrentStage(), "Please select a person in the table.", "No Selection",
+			this.fxViewManager.showError(getCurrentStage(), "Please select a person in the table.", "No Selection",
 					"No Person Selected");
 		}
 	}

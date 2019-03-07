@@ -34,7 +34,7 @@ public class PrintCheckoutRecordController extends BaseFxModalController {
 			try {
 				libraryService.printCheckoutRecord(memberIdField.getText());
 			} catch (LibraryException e) {
-				fxViewManager.showError(this.getCurrentStage(), e.getMessage(), "Error", "Database error");
+				fxViewManager.showInformation(this.getCurrentStage(), e.getMessage(), "Information", "Prompt");
 			}
 		}
 	}

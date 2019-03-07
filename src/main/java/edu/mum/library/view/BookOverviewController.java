@@ -61,7 +61,7 @@ public class BookOverviewController extends BaseFxController {
 					"You have added a copy for:" + selectedPerson.getIsbn(), "Operation finished Successfully.",
 					"Prompt");
 		} else {
-			fxViewManager.showWarning(application.getPrimaryStage(), "Please select a book!", "No book selected",
+			fxViewManager.showError(application.getPrimaryStage(), "Please select a book!", "No book selected",
 					"No Selection");
 		}
 
@@ -120,7 +120,7 @@ public class BookOverviewController extends BaseFxController {
 
 		} else {
 			// Nothing selected.
-			fxViewManager.showWarning(application.getPrimaryStage(), "Please select a book!", "No book selected",
+			fxViewManager.showError(application.getPrimaryStage(), "Please select a book!", "No book selected",
 					"No Selection");
 		}
 	}

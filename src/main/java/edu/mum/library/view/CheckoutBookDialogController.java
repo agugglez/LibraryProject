@@ -55,7 +55,7 @@ public class CheckoutBookDialogController extends BaseFxModalController {
 				libraryUiManager.showCheckoutOverviewDialog(memberIdField.getText());
 
 			} catch (LibraryException e) {
-				fxViewManager.showError(this.getCurrentStage(), e.getMessage(), "Error", "Database error");
+				fxViewManager.showError(this.getCurrentStage(), e.getMessage(), "Information", "Warning");
 			}
 
 			return;

@@ -105,7 +105,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 				this.getCurrentStage().close();
 			}
 		} catch (LibraryException ex) {
-			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Book Management",
+			this.fxViewManager.showError(getCurrentStage(), ex.getMessage(), "Book Management",
 					"Please correct Error");
 		}
 	}
