@@ -79,6 +79,7 @@ public class RootController extends BaseFxController {
 	}
 
 	public void showPrintCheckoutRecordUi() {
+		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(null);
 		libraryUiManager.showPrintDialogDialog();
 	}
 }

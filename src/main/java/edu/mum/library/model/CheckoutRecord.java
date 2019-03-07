@@ -35,7 +35,7 @@ public class CheckoutRecord extends BaseEntity {
 	}
 
 	public void printCheckoutRecord() {
-		String header =  "checkoutDate" + "\t" + "dueDate" + "\t" + "ISBN" + "\t"
+		String header =  "Checkout Date" + "\t" + "Due Date" + "\t" + "ISBN" + "\t"
 				+ "Title" + "";
 		System.out.println(header);
 		String out = checkoutEntries.stream().map(e -> e.toString()).collect(Collectors.joining("\n"));
