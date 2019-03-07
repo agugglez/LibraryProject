@@ -29,10 +29,9 @@
             <Label text="Member ID" />
          </children>
       </GridPane>
-      <Button layoutX="296.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleOk" text="OK" textOverrun="CLIP" AnchorPane.bottomAnchor="78.0">
+      <Button layoutX="296.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleOk" text="Check Out" textOverrun="CLIP" AnchorPane.bottomAnchor="78.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></Button>
-      <Button disable="true" layoutX="462.0" layoutY="247.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="78.0" AnchorPane.rightAnchor="24.5" />
    </children>
 </AnchorPane>

@@ -13,7 +13,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Button>
-      <Button layoutX="87.0" layoutY="178.0" mnemonicParsing="false" text="Cancel" onAction="#closeWindow"/>
+      <Button layoutX="87.0" layoutY="178.0" mnemonicParsing="false" text="Cancel" onAction="#closeWindow"  />
       <TextField fx:id="memberIdField" layoutX="252.0" layoutY="68.0" prefHeight="32.0" prefWidth="213.0" />
       <Label layoutX="97.0" layoutY="76.0" text="Member ID" />
    </children>

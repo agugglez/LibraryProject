@@ -31,7 +31,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 			copiesField.setDisable(true);
 			isbnField.setDisable(true);
 		}
-		setAuthor();
+		updateAuthorInformationToUi();
 		this.registerRequired("ISBN", isbnField::getText);
 		this.registerRequired("Title", titleField::getText);
 		this.registerRequired("availability", availabilityField::getText);
@@ -67,7 +67,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 
 	}
 
-	void setAuthor() {
+	void updateAuthorInformationToUi() {
 		List<Author> list = new ArrayList<>();
 		if (this.entityDto != null) {
 			list.addAll(bookDao.readById(this.entityDto.getIsbn()).getBookAuthors());
@@ -105,7 +105,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 				this.getCurrentStage().close();
 			}
 		} catch (LibraryException ex) {
-			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Book Management",
+			this.fxViewManager.showError(getCurrentStage(), ex.getMessage(), "Book Management",
 					"Please correct Error");
 		}
 	}
@@ -143,7 +143,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 		BaseFxModalController result = libraryUiManager.showAuthorEditDialogDialog();
 		if (result.isOkClicked()) {
 			authorList.add((Author) result.getReturnResult());
-			setAuthor();
+			updateAuthorInformationToUi();
 		}
 	}
 }

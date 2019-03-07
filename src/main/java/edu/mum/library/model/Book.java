@@ -42,7 +42,7 @@ public class Book extends BaseEntityWithPrimaryKey<String> {
 		this.availability = availability;
 
 		bookCopies = new ArrayList<>();
-		bookAuthors = new ArrayList<>();
+		bookAuthors = new ArrayList<>(authorList);
 	}
 
 	// public void addBookCopy() {

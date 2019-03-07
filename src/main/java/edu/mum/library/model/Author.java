@@ -17,8 +17,8 @@ public class Author extends Person{
 
 	@Override
 	public String toString() {
-		return "Author [firstName=" + firstName
-				+ ", lastName=" + lastName + ", personAddress=" + personAddress + ", phoneNumber=" + phoneNumber + "]";
+		return "firstName :" + firstName
+				+ ", lastName: " + lastName + ", personAddress: (" + personAddress + "), phoneNumber:" + phoneNumber + "]";
 	}
 
 	private String shortBio;

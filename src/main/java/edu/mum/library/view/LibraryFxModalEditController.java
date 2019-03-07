@@ -36,17 +36,7 @@ public abstract class LibraryFxModalEditController<T> extends BaseFxModalControl
 	protected Set<Field> ignoreFieldList = new HashSet<>(
 			FieldUtils.getFieldsListWithAnnotation(this.getClass(), NoAutoSettingGetting.class));
 
-	// FieldUtils
-	@Override
-	public void postInit() {
 
-		this.entityDto = provideEntity();
-
-		fromDtoToView();
-
-		morePost();
-
-	}
 
 	protected boolean shouldSkipe(Field field) {
 		return ignoreFieldList.contains(field);
@@ -110,108 +100,20 @@ public abstract class LibraryFxModalEditController<T> extends BaseFxModalControl
 		}
 	}
 
+	// FieldUtils
+	@Override
+	public void postInit() {
+
+		this.entityDto = provideEntity();
+
+		fromDtoToView();
+
+		morePost();
+
+	}
+
 	protected void morePost() {
 
-	}
-
-	protected static class CheckField<T> {
-		private Supplier<T> supplier;
-
-		public CheckType getCheckType() {
-			return checkType;
-		}
-
-		private String name;
-		private CheckType checkType;
-
-		public Supplier<T> getSupplier() {
-			return supplier;
-		}
-
-		public CheckField(String name, Supplier<T> supplier) {
-			this(name, supplier, CheckType.REQUIRED);
-		}
-
-		public CheckField(String name, Supplier<T> supplier, CheckType checkType) {
-			super();
-			this.supplier = supplier;
-			this.name = name;
-			this.checkType = checkType;
-		}
-
-		public String getName() {
-			return name;
-		}
-	}
-
-	private static interface ICheck<T> {
-		boolean check(CheckField<T> val);
-
-		public String formatErrorMessage(String name);
-	}
-
-	private static class RequiredCheck implements ICheck<String> {
-
-		@Override
-		public boolean check(CheckField<String> val) {
-			return !StringUtils.isEmpty(val.getSupplier().get());
-		}
-
-		@Override
-		public String formatErrorMessage(String name) {
-			return "No valid " + name + "!\n";
-		}
-	}
-
-	public static enum CheckType {
-		REQUIRED(new RequiredCheck());
-		CheckType(ICheck<String> check) {
-			this.check = check;
-		}
-
-		private ICheck<String> check;
-
-		public String check(CheckField<String> val) {
-			if (!check.check(val)) {
-				return check.formatErrorMessage(val.name);
-
-			}
-			return "";
-
-		}
-	}
-
-	protected List<CheckField<String>> checkFieldList = new ArrayList<>();
-
-	protected void registerRequired(String name, Supplier<String> supplier) {
-		checkFieldList.add(new CheckField<String>(name, supplier));
-	}
-
-	/**
-	 * Validates the user input in the text fields.
-	 *
-	 * @return true if the input is valid
-	 */
-	protected boolean isInputValid() {
-		String errorMessage = "";
-
-		for (CheckField<String> checkField : checkFieldList) {
-			errorMessage += checkField.getCheckType().check(checkField);
-
-		}
-		errorMessage += moreCheck();
-		if (errorMessage.length() == 0) {
-			return true;
-		} else {
-			fxViewManager.showError(this.getCurrentStage(), errorMessage, "Invalid Fields",
-					"Please correct invalid fields");
-
-			return false;
-		}
-	}
-
-	protected String moreCheck() {
-		return "";
 	}
 
 	protected T entityDto;

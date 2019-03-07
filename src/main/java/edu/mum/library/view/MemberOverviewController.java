@@ -11,17 +11,14 @@ import org.springframework.stereotype.Component;
 import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.view.base.BaseFxController;
 import edu.mum.library.view.dto.MemberDto;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -55,9 +52,6 @@ public class MemberOverviewController extends BaseFxController {
 	@Autowired
 	private LibraryUiManager libraryUiManager;
 
-	// @Autowired
-	// private LibraryService libraryService;
-
 	@Autowired
 	private MemberDao memberDao;
 
@@ -66,13 +60,13 @@ public class MemberOverviewController extends BaseFxController {
 	}
 
 	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called after
+	 * the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
 		personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
-		preJava8();
+		configureColumnForTableView();
 		// Clear person details.
 		showPersonDetails(null);
 
@@ -83,34 +77,12 @@ public class MemberOverviewController extends BaseFxController {
 
 	}
 
-	private void preJava8() {
+	private void configureColumnForTableView() {
 
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-//		firstNameColumn
-//				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
-//
-//					@Override
-//					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
-//						return param.getValue().firstNameProperty();
-//					}
-//				});
 
-		lastNameColumn
-				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
-
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
-						return param.getValue().lastNameProperty();
-					}
-				});
-		memberIdColumn
-				.setCellValueFactory(new Callback<CellDataFeatures<MemberDto, String>, ObservableValue<String>>() {
-
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<MemberDto, String> param) {
-						return param.getValue().memberIdProperty();
-					}
-				});
+		lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		memberIdColumn.setCellValueFactory(new PropertyValueFactory<>("memberId"));
 	}
 
 	private void showPersonDetails(MemberDto person) {
@@ -123,7 +95,6 @@ public class MemberOverviewController extends BaseFxController {
 			cityLabel.setText(person.getCity());
 			memberIdLabel.setText(person.getMemberId());
 			stateLabel.setText(person.getState());
-
 			phoneNumberLabel.setText(person.getPhoneNumber());
 		} else {
 			// Person is null, remove all the text.
@@ -161,8 +132,8 @@ public class MemberOverviewController extends BaseFxController {
 	}
 
 	/**
-	 * Called when the user clicks the new button. Opens a dialog to edit
-	 * details for a new person.
+	 * Called when the user clicks the new button. Opens a dialog to edit details
+	 * for a new person.
 	 */
 	@FXML
 	private void handleNewPerson() {
@@ -173,8 +144,8 @@ public class MemberOverviewController extends BaseFxController {
 	}
 
 	/**
-	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected person.
+	 * Called when the user clicks the edit button. Opens a dialog to edit details
+	 * for the selected person.
 	 */
 	@FXML
 	private void handleEditPerson() {
@@ -186,14 +157,8 @@ public class MemberOverviewController extends BaseFxController {
 			}
 
 		} else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(application.getPrimaryStage());
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No Person Selected");
-			alert.setContentText("Please select a person in the table.");
-
-			alert.showAndWait();
+			this.fxViewManager.showError(getCurrentStage(), "Please select a person in the table.", "No Selection",
+					"No Person Selected");
 		}
 	}
 }
