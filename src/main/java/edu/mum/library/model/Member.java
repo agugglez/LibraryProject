@@ -19,8 +19,8 @@ public class Member extends Person implements IPrimaryKeyGetter<String> {
 
 	}
 
-	public void checkoutBook(BookCopy bc) {
-		checkoutRecord.checkoutBook(this, bc);
+	public CheckoutEntry checkoutBook(BookCopy bc) {
+		return checkoutRecord.checkoutBook(this, bc);
 	}
 
 	@Override

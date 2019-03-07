@@ -7,23 +7,26 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="617.0" prefWidth="722.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OverduesOverviewController">
+<AnchorPane prefHeight="617.0" prefWidth="722.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mum.library.view.OverduesOverviewController">
 	<children>
-						<TableView fx:id="personTable" layoutX="62.0" layoutY="151.0" prefHeight="395.0" prefWidth="631.0">
+						<TableView fx:id="overduesTable" layoutX="62.0" layoutY="151.0" prefHeight="395.0" prefWidth="631.0">
 							<columns>
-								<TableColumn fx:id="isbnColumn" prefWidth="75.0" text="Copy Number" />
-            <TableColumn fx:id="numberofCopiesColumn" prefWidth="75.0" text="Member" />
-								<TableColumn fx:id="titleColumn" prefWidth="75.0" text="Due Date" />
+								<TableColumn fx:id="copyNumberColumn" prefWidth="75.0" text="Copy Number" />
+            <TableColumn fx:id="memberIdColumn" prefWidth="75.0" text="Member" />
+								<TableColumn fx:id="dueDateColumn" prefWidth="75.0" text="Due Date" />
+            <TableColumn fx:id="overdueColumn" prefWidth="75.0" text="Overdue" />
 							</columns>
 							<columnResizePolicy>
 								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							</columnResizePolicy>
 						</TableView>
-      <TextField fx:id="searchFilter" layoutX="227.0" layoutY="16.0" onInputMethodTextChanged="#refresh" onKeyReleased="#refresh" onKeyTyped="#refresh" />
-      <Button layoutX="22.0" layoutY="16.0" mnemonicParsing="false" onAction="#addCopy" text="Search by ISBN" />
-      <Label layoutX="65.0" layoutY="67.0" text="ISBN:" />
-      <Label layoutX="141.0" layoutY="68.0" text="isbn place holder" />
-      <Label layoutX="276.0" layoutY="68.0" text="TITLE:" />
-      <Label layoutX="333.0" layoutY="68.0" text="title Placeholder" />
+      <TextField fx:id="searchByIsbnField" layoutX="227.0" layoutY="16.0" />
+      <Button defaultButton="true" layoutX="22.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleSearch" text="Search by ISBN" />
+      <Label layoutX="62.0" layoutY="68.0" text="Title" />
+      <Label fx:id="titleField" layoutX="121.0" layoutY="68.0" />
+      <Label layoutX="492.0" layoutY="68.0" text="Checkedout copies:" />
+      <Label layoutX="513.0" layoutY="95.0" text="Available copies:" />
+      <Label fx:id="checkedoutCopiesField" layoutX="638.0" layoutY="68.0" />
+      <Label fx:id="availableCopiesField" layoutX="638.0" layoutY="95.0" />
 	</children>
 </AnchorPane>

@@ -22,12 +22,12 @@ public class CheckoutRecord extends BaseEntity {
 		checkoutEntries = new ArrayList<>();
 	}
 
-	public void checkoutBook(Member member, BookCopy bc) {
+	public CheckoutEntry checkoutBook(Member member, BookCopy bc) {
 		LocalDate checkoutDate = LocalDate.now();
 		LocalDate dueDate = LocalDate.now().plusDays(bc.getBook().getAvailability());
 		CheckoutEntry ce = new CheckoutEntry(checkoutDate, dueDate, member, bc);
 		checkoutEntries.add(ce);
-		bc.setAvailable(false);
+		return ce;
 	}
 
 	public List<CheckoutEntry> getCheckoutEntries() {

@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 @Component
 public class LibraryUiManager extends BaseUI {
 
+	public BaseFxModalController showOverduesDialog() {
+
+		return showDialogReturnController("/edu/mum/library/view/OverduesOverview.fxml", "Overdues", null);
+	}
 	public BaseFxModalController showPrintDialogDialog() {
 
 		return showDialogReturnController("/edu/mum/library/view/PrintCheckoutDialog.fxml", "Print", null);

@@ -82,4 +82,13 @@ public class RootController extends BaseFxController {
 		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(null);
 		libraryUiManager.showPrintDialogDialog();
 	}
+	public void showOverduesUi() {
+//		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(null);
+//		libraryUiManager.showOverduesDialog();
+		AnchorPane view = this.application.importLayout("/edu/mum/library/view/OverduesOverview.fxml");
+
+		// Set person overview into the center of root layout.
+		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
+
+	}
 }

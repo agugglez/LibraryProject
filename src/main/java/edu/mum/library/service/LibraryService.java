@@ -1,6 +1,9 @@
 package edu.mum.library.service;
 
+import java.util.List;
+
 import edu.mum.library.model.Book;
+import edu.mum.library.model.CheckoutEntry;
 import edu.mum.library.model.Member;
 
 public interface LibraryService {
@@ -15,5 +18,5 @@ public interface LibraryService {
 
 	void printCheckoutRecord(String memberId);
 
-	void getOverdues(String isbn);
+	List<CheckoutEntry> getOverdues(String isbn);
 }

@@ -11,6 +11,24 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 
 	private CheckoutEntry checkoutEntry;
 
+	public CheckoutEntry getCheckoutEntry() {
+		return checkoutEntry;
+	}
+
+	public void setCheckoutEntry(CheckoutEntry checkoutEntry) {
+		this.checkoutEntry = checkoutEntry;
+	}
+
+	public void checkout(CheckoutEntry ce) {
+		this.setCheckoutEntry(ce);
+		this.setAvailable(false);
+	}
+	public void returnBook()
+	{
+		this.setCheckoutEntry(null);
+		this.setAvailable(true);
+	}
+
 	private String copyNumber;
 
 	private boolean isAvailable;
@@ -26,10 +44,6 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 
 	public Book getBook() {
 		return originalBook;
-	}
-
-	public CheckoutEntry getcheckoutEntry() {
-		return checkoutEntry;
 	}
 
 	public String getCopyNumber() {

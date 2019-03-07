@@ -1,5 +1,8 @@
 package edu.mum.library.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +11,7 @@ import edu.mum.library.dataaccess.BookDao;
 import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Book;
 import edu.mum.library.model.BookCopy;
+import edu.mum.library.model.CheckoutEntry;
 import edu.mum.library.model.Member;
 
 @Service
@@ -39,7 +43,8 @@ public class LibraryServiceImpl implements LibraryService {
 			throw new LibraryException("There are no copies available for this book:" + isbn);
 		}
 
-		member.checkoutBook(bc);
+		CheckoutEntry ce = member.checkoutBook(bc);
+		bc.checkout(ce);
 		memberDao.save(member);
 	}
 
@@ -63,18 +68,22 @@ public class LibraryServiceImpl implements LibraryService {
 	public void printCheckoutRecord(String memberId) {
 		Member member = memberDao.readById(memberId);
 		if (member == null) {
-			throw new LibraryException("Member Id not found:" + memberId);
+			throw new LibraryException("Member Id not found: " + memberId);
 		}
 		member.printCheckoutRecord();
 		// TODO Add fromat
 	}
 
 	@Override
-	public void getOverdues(String isbn) {
+	public List<CheckoutEntry> getOverdues(String isbn) {
 		Book book = bookDao.readById(isbn);
 		if (book == null) {
-			throw new LibraryException("ISBN not found:" + isbn);
+			throw new LibraryException("ISBN not found: " + isbn);
 		}
+
+		return book.getBookCopies().stream().filter(x -> !x.isAvailable()).map(y -> y.getCheckoutEntry())
+				.collect(Collectors.toList());
+
 	}
 
 }
