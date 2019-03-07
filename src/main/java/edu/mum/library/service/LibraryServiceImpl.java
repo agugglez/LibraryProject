@@ -54,7 +54,7 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public void addBook(Book book,int copies) {
+	public void addBook(Book book, int copies) {
 		book.addBookCopyList(copies);
 		bookDao.insert(book);
 	}
@@ -62,11 +62,19 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	public void printCheckoutRecord(String memberId) {
 		Member member = memberDao.readById(memberId);
-		if(member == null){
+		if (member == null) {
 			throw new LibraryException("Member Id not found:" + memberId);
 		}
 		member.printCheckoutRecord();
 		// TODO Add fromat
+	}
+
+	@Override
+	public void getOverdues(String isbn) {
+		Book book = bookDao.readById(isbn);
+		if (book == null) {
+			throw new LibraryException("ISBN not found:" + isbn);
+		}
 	}
 
 }
