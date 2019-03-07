@@ -9,6 +9,7 @@ import edu.mum.library.model.Address;
 import edu.mum.library.model.Author;
 import edu.mum.library.view.dto.AuthorDto;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 @Component
@@ -37,10 +38,14 @@ public class AuthorEditDialogController extends LibraryFxModalEditController<Aut
 	private TextField stateField;
 	@FXML
 	private TextField phoneNumberField;
+	@FXML
+	private TextField credentialsField;
+	@FXML
+	private TextArea shortBioField;
 
 	/**
-	 * Initializes the controller class. This method is automatically called after
-	 * the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called
+	 * after the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
@@ -58,12 +63,12 @@ public class AuthorEditDialogController extends LibraryFxModalEditController<Aut
 	@FXML
 	private void handleOk() {
 		if (isInputValid()) {
-			Author author = new Author(firstNameField.getText(), lastNameField.getText(),
-					phoneNumberField.getText());
+			Author author = new Author(firstNameField.getText(), lastNameField.getText(), phoneNumberField.getText());
 			author.setPersonAddress(new Address(streetField.getText(), cityField.getText(), stateField.getText(),
 					zipcodeField.getText()));
-//			libraryService.addMember(member);
-
+			// libraryService.addMember(member);
+			author.setCredentials(credentialsField.getText());
+			author.setShortBio(shortBioField.getText());
 			okClicked = true;
 			this.setReturnResult(author);
 			this.getCurrentStage().close();

@@ -2,6 +2,7 @@ package edu.mum.library.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import edu.mum.library.common.LibraryException;
+import edu.mum.library.common.NoAutoSettingGetting;
 import edu.mum.library.dataaccess.BookDao;
 import edu.mum.library.model.Author;
 import edu.mum.library.model.Book;
@@ -16,6 +18,7 @@ import edu.mum.library.service.LibraryService;
 import edu.mum.library.view.base.BaseFxModalController;
 import edu.mum.library.view.dto.BookDto;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 @Component
@@ -28,6 +31,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 			copiesField.setDisable(true);
 			isbnField.setDisable(true);
 		}
+		setAuthor();
 		this.registerRequired("ISBN", isbnField::getText);
 		this.registerRequired("Title", titleField::getText);
 		this.registerRequired("availability", availabilityField::getText);
@@ -42,6 +46,9 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 	private TextField availabilityField;
 	@FXML
 	private TextField copiesField;
+	@FXML
+	@NoAutoSettingGetting
+	private TextArea authors;
 
 	@Autowired
 	private LibraryService libraryService;
@@ -52,12 +59,22 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 	private List<Author> authorList = new ArrayList<>();
 
 	/**
-	 * Initializes the controller class. This method is automatically called after
-	 * the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called
+	 * after the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
 
+	}
+
+	void setAuthor() {
+		List<Author> list = new ArrayList<>();
+		if (this.entityDto != null) {
+			list.addAll(bookDao.readById(this.entityDto.getIsbn()).getBookAuthors());
+		}
+		list.addAll(this.authorList);
+		String authorListText = list.stream().map(Object::toString).collect(Collectors.joining("\n"));
+		authors.setText(authorListText);
 	}
 
 	/**
@@ -126,6 +143,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 		BaseFxModalController result = libraryUiManager.showAuthorEditDialogDialog();
 		if (result.isOkClicked()) {
 			authorList.add((Author) result.getReturnResult());
+			setAuthor();
 		}
 	}
 }

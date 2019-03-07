@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class CheckoutDialogController extends BaseFxModalController {
+public class CheckoutBookDialogController extends BaseFxModalController {
 
 	@Autowired
 	private LibraryUiManager libraryUiManager;
