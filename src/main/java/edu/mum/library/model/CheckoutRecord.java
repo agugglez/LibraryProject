@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.mum.library.model.base.BaseEntity;
 
@@ -34,7 +35,11 @@ public class CheckoutRecord extends BaseEntity {
 	}
 
 	public void printCheckoutRecord() {
-		throw new UnsupportedOperationException();
+		String header =  "checkoutDate" + "\t" + "dueDate" + "\t" + "ISBN" + "\t"
+				+ "Title" + "";
+		System.out.println(header);
+		String out = checkoutEntries.stream().map(e -> e.toString()).collect(Collectors.joining("\n"));
+		System.out.println(out);
 	}
 
 }

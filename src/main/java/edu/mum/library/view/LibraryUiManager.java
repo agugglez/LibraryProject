@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 @Component
 public class LibraryUiManager extends BaseUI {
 
+	public BaseFxModalController showPrintDialogDialog() {
+
+		return showDialogReturnController("/edu/mum/library/view/PrintCheckoutDialog.fxml", "Print", null);
+	}
 	public BaseFxModalController showAuthorEditDialogDialog() {
 
 		return showDialogReturnController("/edu/mum/library/view/AuthorEditDialog.fxml", "Add Author", null);

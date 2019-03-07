@@ -17,7 +17,7 @@ public class CheckoutEntry extends BaseEntity {
 	private Member member;
 	private BookCopy bookCopy;
 
-	//package
+	// package
 	CheckoutEntry(LocalDate checkoutDate, LocalDate dueDate, Member member, BookCopy bookCopy) {
 		super();
 		this.checkoutDate = checkoutDate;
@@ -28,6 +28,12 @@ public class CheckoutEntry extends BaseEntity {
 
 	public BookCopy getBookCopy() {
 		return bookCopy;
+	}
+
+	@Override
+	public String toString() {
+		return checkoutDate + "\t" + dueDate + "\t" + bookCopy.getBook().getIsbn() + "\t"
+				+ bookCopy.getBook().getTitle() + "";
 	}
 
 	public LocalDate getCheckoutDate() {

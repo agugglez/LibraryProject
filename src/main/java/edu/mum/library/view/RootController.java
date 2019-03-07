@@ -77,4 +77,8 @@ public class RootController extends BaseFxController {
 		// Set person overview into the center of root layout.
 		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
+
+	public void showPrintCheckoutRecordUi() {
+		libraryUiManager.showPrintDialogDialog();
+	}
 }
