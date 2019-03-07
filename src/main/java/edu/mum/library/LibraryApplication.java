@@ -84,6 +84,7 @@ public class LibraryApplication extends Application {
 
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
+		primaryStage.setMaximized(true);
 		primaryStage.show();
 		// AnchorPane personOverview =
 		// importLayout("/edu/mum/library/view/PersonOverview.fxml");

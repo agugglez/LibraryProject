@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 @Component
@@ -30,11 +31,6 @@ public class OverduesOverviewController extends BaseFxController {
 	@FXML
 	private TableView<OverdueDto> overduesTable;
 
-	// this.isbn = new SimpleStringProperty(member.getIsbn());
-	// this.title = new SimpleStringProperty(member.getTitle());
-	// this.availability = new SimpleIntegerProperty(member.getAvailability());
-	// this.numberofCopies = new
-	// SimpleIntegerProperty(member.getBookCopies().size());
 	@FXML
 	private TableColumn<OverdueDto, String> copyNumberColumn;
 	@FXML
@@ -67,25 +63,17 @@ public class OverduesOverviewController extends BaseFxController {
 	 */
 	@FXML
 	private void initialize() {
-		// personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
-		preJava8();
-
-		// Listen for selection changes and show the person details when
-		// changed.
-		// personTable.getSelectionModel().selectedItemProperty()
-		// .addListener((observable, oldValue, newValue) ->
-		// showPersonDetails(newValue));
+		configureColumnForTableView();
 
 	}
 
-	private void preJava8() {
+	private void configureColumnForTableView() {
 
 		copyNumberColumn.setCellValueFactory(new PropertyValueFactory<>("copyNumber"));
 		dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-		// availabilityColumn.setCellValueFactory(new
-		// PropertyValueFactory<>("availability"));
 		memberIdColumn.setCellValueFactory(new PropertyValueFactory<>("memberId"));
 		overdueColumn.setCellValueFactory(new PropertyValueFactory<>("overdue"));
+		overdueColumn.setCellFactory(tc->new CheckBoxTableCell<>());
 
 	}
 

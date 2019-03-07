@@ -3,18 +3,19 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="265.0" prefWidth="515.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mum.library.view.PrintCheckoutRecordController">
+<AnchorPane prefHeight="453.0" prefWidth="777.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mum.library.view.PrintCheckoutRecordController">
    <children>
-      <Button layoutX="256.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleOk" text="Print Checkout Record" textOverrun="CLIP">
+      <Button defaultButton="true" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleOk" text="Print Checkout Record" textOverrun="CLIP" AnchorPane.rightAnchor="25.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Button>
-      <Button layoutX="87.0" layoutY="178.0" mnemonicParsing="false" text="Cancel" onAction="#closeWindow"  />
-      <TextField fx:id="memberIdField" layoutX="252.0" layoutY="68.0" prefHeight="32.0" prefWidth="213.0" />
-      <Label layoutX="97.0" layoutY="76.0" text="Member ID" />
+      <TextField fx:id="memberIdField" layoutX="272.0" layoutY="61.0" onInputMethodTextChanged="#clearText" onKeyReleased="#clearText" prefHeight="32.0" prefWidth="213.0" AnchorPane.rightAnchor="25.0" />
+      <Label layoutX="40.0" layoutY="60.0" text="Member ID" />
+      <TextArea fx:id="consoleText" layoutX="25.0" layoutY="204.0" prefHeight="223.0" prefWidth="726.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="204.0" />
    </children>
 </AnchorPane>

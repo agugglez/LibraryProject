@@ -9,6 +9,7 @@ import edu.mum.library.common.LibraryException;
 import edu.mum.library.service.LibraryService;
 import edu.mum.library.view.base.BaseFxModalController;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 @Component
@@ -22,6 +23,9 @@ public class PrintCheckoutRecordController extends BaseFxModalController {
 	@FXML
 	private TextField memberIdField;
 
+	@FXML
+	private TextArea consoleText;
+
 	@Autowired
 	private LibraryService libraryService;
 
@@ -32,11 +36,16 @@ public class PrintCheckoutRecordController extends BaseFxModalController {
 	private void handleOk() {
 		if (isInputValid()) {
 			try {
-				libraryService.printCheckoutRecord(memberIdField.getText());
+				String all = libraryService.printCheckoutRecord(memberIdField.getText());
+				consoleText.setText(all);
+				System.out.println(all);
 			} catch (LibraryException e) {
 				fxViewManager.showInformation(this.getCurrentStage(), e.getMessage(), "Information", "Prompt");
 			}
 		}
 	}
-
+	@FXML
+	void clearText() {
+		consoleText.setText("");
+	}
 }

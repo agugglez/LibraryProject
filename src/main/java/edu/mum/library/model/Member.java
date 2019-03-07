@@ -41,8 +41,8 @@ public class Member extends Person implements IPrimaryKeyGetter<String> {
 		return PrimaryKeyHelper.hashCode(this);
 	}
 
-	public void printCheckoutRecord() {
-		checkoutRecord.printCheckoutRecord();
+	public String printCheckoutRecord() {
+		return checkoutRecord.printCheckoutRecord();
 	}
 
 	@Override

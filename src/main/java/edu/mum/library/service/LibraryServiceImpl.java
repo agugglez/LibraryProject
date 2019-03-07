@@ -65,12 +65,12 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public void printCheckoutRecord(String memberId) {
+	public String printCheckoutRecord(String memberId) {
 		Member member = memberDao.readById(memberId);
 		if (member == null) {
 			throw new LibraryException("Member Id not found: " + memberId);
 		}
-		member.printCheckoutRecord();
+		return member.printCheckoutRecord();
 		// TODO Add fromat
 	}
 

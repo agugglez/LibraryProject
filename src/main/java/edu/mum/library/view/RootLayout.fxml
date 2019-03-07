@@ -13,6 +13,8 @@
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
 
+						<MenuItem mnemonicParsing="false" onAction="#createMockData" text="Create Mock Data" />
+
 						<MenuItem mnemonicParsing="false" onAction="#shutdown" text="Close" />
 					</items>
 				</Menu>

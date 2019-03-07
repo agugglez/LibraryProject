@@ -34,12 +34,12 @@ public class CheckoutRecord extends BaseEntity {
 		return Collections.unmodifiableList(checkoutEntries);
 	}
 
-	public void printCheckoutRecord() {
-		String header =  "Checkout Date" + "\t" + "Due Date" + "\t" + "ISBN" + "\t"
-				+ "Title" + "";
-		System.out.println(header);
-		String out = checkoutEntries.stream().map(e -> e.toString()).collect(Collectors.joining("\n"));
-		System.out.println(out);
+	public String printCheckoutRecord() {
+		StringBuilder sb = new StringBuilder("Checkout Date" + "\t" + "Due Date" + "\t" + "ISBN" + "\t" + "Title" + "");
+		// System.out.println(header);
+		sb.append(checkoutEntries.stream().map(e -> e.toString()).collect(Collectors.joining("\n")));
+		// System.out.println(sb.toString());
+		return sb.toString();
 	}
 
 }

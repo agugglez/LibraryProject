@@ -5,6 +5,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import edu.mum.library.mock.CreateMockData;
 import edu.mum.library.model.AuthorizationLevel;
 import edu.mum.library.service.SessionManager;
 import edu.mum.library.view.base.BaseFxController;
@@ -40,6 +41,13 @@ public class RootController extends BaseFxController {
 	@FXML
 	void shutdown() {
 		Platform.exit();
+	}
+
+	@Autowired
+	CreateMockData createMockData;
+	@FXML
+	void createMockData() {
+		createMockData.create();
 	}
 
 	@Autowired
@@ -79,12 +87,20 @@ public class RootController extends BaseFxController {
 	}
 
 	public void showPrintCheckoutRecordUi() {
-		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(null);
-		libraryUiManager.showPrintDialogDialog();
+		// ((BorderPane)
+		// this.getCurrentStage().getScene().getRoot()).setCenter(null);
+		//
+		// libraryUiManager.showPrintDialogDialog();
+		AnchorPane view = this.application.importLayout("/edu/mum/library/view/PrintCheckoutDialog.fxml");
+
+		// Set person overview into the center of root layout.
+		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
+
 	public void showOverduesUi() {
-//		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(null);
-//		libraryUiManager.showOverduesDialog();
+		// ((BorderPane)
+		// this.getCurrentStage().getScene().getRoot()).setCenter(null);
+		// libraryUiManager.showOverduesDialog();
 		AnchorPane view = this.application.importLayout("/edu/mum/library/view/OverduesOverview.fxml");
 
 		// Set person overview into the center of root layout.

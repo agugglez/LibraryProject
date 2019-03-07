@@ -14,6 +14,14 @@ public class CheckoutEntry extends BaseEntity {
 	private LocalDate checkoutDate;
 	private LocalDate dueDate;
 
+	public void setCheckoutDate(LocalDate checkoutDate) {
+		this.checkoutDate = checkoutDate;
+	}
+
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate = dueDate;
+	}
+
 	private Member member;
 	private BookCopy bookCopy;
 

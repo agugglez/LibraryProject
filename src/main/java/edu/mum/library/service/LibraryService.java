@@ -16,7 +16,7 @@ public interface LibraryService {
 
 	void addBook(Book book, int copies);
 
-	void printCheckoutRecord(String memberId);
+	String printCheckoutRecord(String memberId);
 
 	List<CheckoutEntry> getOverdues(String isbn);
 }

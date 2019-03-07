@@ -145,3 +145,21 @@
 #mainPane{
 -fx-background-image:url("/1200px-Melk_-_Abbey_-_Library.jpg");
 }
+.check-box .box {
+
+-fx-background-color: white;
+-fx-border-color:grey;
+-fx-border-radius:3.0px;
+
+}
+
+.check-box:selected .mark {
+
+-fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color: #28a3f4;
+}
