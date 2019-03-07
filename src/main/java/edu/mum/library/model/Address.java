@@ -6,7 +6,7 @@ public class Address extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Address [street=" + street + ", city=" + city + ", state=" + state + ", zipcode=" + zipcode + "]";
+		return "street:" + street + ", city:" + city + ", state:" + state + ", zipcode:" + zipcode + "";
 	}
 
 	/**

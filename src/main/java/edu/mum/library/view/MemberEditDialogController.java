@@ -30,7 +30,6 @@ public class MemberEditDialogController extends LibraryFxModalEditController<Mem
 	}
 
 	@FXML
-	// @NoAutoSettingGetting
 	private TextField memberIdField;
 	@FXML
 	private TextField firstNameField;
@@ -51,15 +50,6 @@ public class MemberEditDialogController extends LibraryFxModalEditController<Mem
 	private LibraryService libraryService;
 	@Autowired
 	private MemberDao memberDao;
-
-	/**
-	 * Initializes the controller class. This method is automatically called after
-	 * the fxml file has been loaded.
-	 */
-	@FXML
-	private void initialize() {
-
-	}
 
 	/**
 	 * Returns true if the user clicked OK, false otherwise.
@@ -100,7 +90,8 @@ public class MemberEditDialogController extends LibraryFxModalEditController<Mem
 				this.getCurrentStage().close();
 			}
 		} catch (LibraryException ex) {
-			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Member Management", "Please correct Error");
+			this.fxViewManager.showWarning(getCurrentStage(), ex.getMessage(), "Member Management",
+					"Please correct Error");
 		}
 	}
 

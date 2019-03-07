@@ -25,25 +25,12 @@ public class CheckoutOverviewController extends BaseFxModalController {
 	@FXML
 	private TableView<CheckoutEntryDto> personTable;
 
-	// this.isbn = new SimpleStringProperty(member.getIsbn());
-	// this.title = new SimpleStringProperty(member.getTitle());
-	// this.availability = new SimpleIntegerProperty(member.getAvailability());
-	// this.numberofCopies = new
-	// SimpleIntegerProperty(member.getBookCopies().size());
 	@FXML
 	private TableColumn<CheckoutEntryDto, LocalDate> checkoutColumn;
 	@FXML
 	private TableColumn<CheckoutEntryDto, LocalDate> dueColumn;
 	@FXML
 	private TableColumn<CheckoutEntryDto, String> copyNumberColumn;
-	// @FXML
-	// private TableColumn<BookDto, String> numberofCopiesColumn;
-
-	@Autowired
-	private LibraryUiManager libraryUiManager;
-
-	// @Autowired
-	// private LibraryService libraryService;
 
 	@Autowired
 	private MemberDao memberDao;
@@ -56,73 +43,23 @@ public class CheckoutOverviewController extends BaseFxModalController {
 				.collect(Collectors.toList());
 	}
 
-	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
-	 */
-	@FXML
-	private void initialize() {
-
-
-
-
-		// Listen for selection changes and show the person details when
-		// changed.
-		// personTable.getSelectionModel().selectedItemProperty()
-		// .addListener((observable, oldValue, newValue) ->
-		// showPersonDetails(newValue));
-
-	}
-
 	@Override
 	public void postInit() {
-		this.memberId = (String) ((UserObjectForView) this.getCurrentStage().getUserData()).getParameter();
+		this.memberId = (String) UserObjectForView.getParamFromStage(this.getCurrentStage());
 		personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
-		preJava8();
+		configureColumnForTableView();
 	}
 
-	private void preJava8() {
+	private void configureColumnForTableView() {
 
 		checkoutColumn.setCellValueFactory(new PropertyValueFactory<>("checkoutDate"));
 		dueColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 		copyNumberColumn.setCellValueFactory(new PropertyValueFactory<>("copyNumber"));
-		//numberofCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("numberofCopies"));
-		// firstNameColumn
-		// .setCellValueFactory(new Callback<CellDataFeatures<MemberDto,
-		// String>, ObservableValue<String>>() {
-		//
-		// @Override
-		// public ObservableValue<String> call(CellDataFeatures<MemberDto,
-		// String> param) {
-		// return param.getValue().firstNameProperty();
-		// }
-		// });
-
-		// lastNameColumn
-		// .setCellValueFactory(new Callback<CellDataFeatures<MemberDto,
-		// String>, ObservableValue<String>>() {
-		//
-		// @Override
-		// public ObservableValue<String> call(CellDataFeatures<MemberDto,
-		// String> param) {
-		// return param.getValue().lastNameProperty();
-		// }
-		// });
-		// memberIdColumn
-		// .setCellValueFactory(new Callback<CellDataFeatures<MemberDto,
-		// String>, ObservableValue<String>>() {
-		//
-		// @Override
-		// public ObservableValue<String> call(CellDataFeatures<MemberDto,
-		// String> param) {
-		// return param.getValue().memberIdProperty();
-		// }
-		// });
 	}
 
 	/**
-	 * Called when the user clicks the new button. Opens a dialog to edit
-	 * details for a new person.
+	 * Called when the user clicks the new button. Opens a dialog to edit details
+	 * for a new person.
 	 */
 	@FXML
 	private void handleNewPerson() {

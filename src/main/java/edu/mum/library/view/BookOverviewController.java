@@ -25,11 +25,6 @@ public class BookOverviewController extends BaseFxController {
 	@FXML
 	private TableView<BookDto> personTable;
 
-	// this.isbn = new SimpleStringProperty(member.getIsbn());
-	// this.title = new SimpleStringProperty(member.getTitle());
-	// this.availability = new SimpleIntegerProperty(member.getAvailability());
-	// this.numberofCopies = new
-	// SimpleIntegerProperty(member.getBookCopies().size());
 	@FXML
 	private TableColumn<BookDto, String> isbnColumn;
 	@FXML
@@ -62,19 +57,10 @@ public class BookOverviewController extends BaseFxController {
 		if (selectedPerson != null) {
 			libraryService.addBookCopy(bookDao.readById(selectedPerson.getIsbn()));
 			selectedPerson.setCopies("" + bookDao.readById(selectedPerson.getIsbn()).getBookCopies().size());
-			fxViewManager.showInformation(application.getPrimaryStage(), "You have added a copy for:"+selectedPerson.getIsbn(), "Operation finished Successfully.",
+			fxViewManager.showInformation(application.getPrimaryStage(),
+					"You have added a copy for:" + selectedPerson.getIsbn(), "Operation finished Successfully.",
 					"Prompt");
 		} else {
-			// Nothing selected.
-			// Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner(application.getPrimaryStage());
-			// alert.setTitle("No Selection");
-			// alert.setHeaderText("No Person Selected");
-			// alert.setContentText("Please select a person in the table.");
-			//
-			// alert.showAndWait();
-			// this.fxViewManager.showError(stage, errorMessage, title,
-			// headerText);
 			fxViewManager.showWarning(application.getPrimaryStage(), "Please select a book!", "No book selected",
 					"No Selection");
 		}
@@ -82,29 +68,21 @@ public class BookOverviewController extends BaseFxController {
 	}
 
 	@FXML
-	public void refresh() {
+	public void updateDataToTableView() {
 		personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
 	}
 
 	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called after
+	 * the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
-		// personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
-		refresh();
-		preJava8();
-
-		// Listen for selection changes and show the person details when
-		// changed.
-		// personTable.getSelectionModel().selectedItemProperty()
-		// .addListener((observable, oldValue, newValue) ->
-		// showPersonDetails(newValue));
-
+		configureColumnForTableView();
+		updateDataToTableView();
 	}
 
-	private void preJava8() {
+	private void configureColumnForTableView() {
 
 		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -113,26 +91,26 @@ public class BookOverviewController extends BaseFxController {
 	}
 
 	/**
-	 * Called when the user clicks the new button. Opens a dialog to edit
-	 * details for a new person.
+	 * Called when the user clicks the new button. Opens a dialog to edit details
+	 * for a new person.
 	 */
 	@FXML
-	private void handleNewPerson() {
+	private void handleNewBook() {
 		BookDto tempPerson = null;// new Person();
 		if (libraryUiManager.showBookEditDialog(tempPerson)) {
 			// personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
 			searchFilter.setText("");
-			refresh();
+			updateDataToTableView();
 		}
 	}
 
 	/**
-	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected person.
+	 * Called when the user clicks the edit button. Opens a dialog to edit details
+	 * for the selected person.
 	 */
 	@FXML
-	private void handleEditPerson() {
-//		searchFilter.setText("");
+	private void handleEditBook() {
+		// searchFilter.setText("");
 		BookDto selectedPerson = personTable.getSelectionModel().getSelectedItem();
 		if (selectedPerson != null) {
 			boolean okClicked = libraryUiManager.showBookEditDialog(selectedPerson);

@@ -16,8 +16,6 @@ public class FxViewManager extends BaseUI {
 	public void showAlert(Stage stage, String errorMessage, String title, String headerText, AlertType type) {
 		Alert alert = new Alert(type);
 		alert.initOwner(stage);
-		// alert.setTitle("Invalid Fields");
-		// alert.setHeaderText("Please correct invalid fields");
 		alert.setTitle(title);
 		alert.setHeaderText(headerText);
 		alert.setContentText(errorMessage);

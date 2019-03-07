@@ -44,15 +44,6 @@ public class AuthorEditDialogController extends LibraryFxModalEditController<Aut
 	private TextArea shortBioField;
 
 	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
-	 */
-	@FXML
-	private void initialize() {
-
-	}
-
-	/**
 	 * Returns true if the user clicked OK, false otherwise.
 	 *
 	 * @return
