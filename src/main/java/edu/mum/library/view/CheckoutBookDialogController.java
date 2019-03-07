@@ -1,5 +1,6 @@
 package edu.mum.library.view;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -58,8 +59,8 @@ public class CheckoutBookDialogController extends BaseFxModalController {
 	private MemberDao memberDao;
 
 	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
+	 * Initializes the controller class. This method is automatically called after
+	 * the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
@@ -88,8 +89,7 @@ public class CheckoutBookDialogController extends BaseFxModalController {
 				libraryUiManager.showCheckoutOverviewDialog(memberIdField.getText());
 
 			} catch (LibraryException e) {
-				fxViewManager.showError(this.getCurrentStage(), e.getMessage(), "Error",
-						"Database error");
+				fxViewManager.showError(this.getCurrentStage(), e.getMessage(), "Error", "Database error");
 			}
 
 			return;
@@ -132,9 +132,8 @@ public class CheckoutBookDialogController extends BaseFxModalController {
 			//
 			// }
 
-
-//			okClicked = true;
-//			this.getCurrentStage().close();
+			// okClicked = true;
+			// this.getCurrentStage().close();
 		}
 	}
 
@@ -145,7 +144,12 @@ public class CheckoutBookDialogController extends BaseFxModalController {
 	 */
 	private boolean isInputValid() {
 		String errorMessage = "";
-
+		if (StringUtils.isEmpty(memberIdField.getText())) {
+			errorMessage += "PLease input memeber Id Field \n";
+		}
+		if (StringUtils.isEmpty(isbnField.getText())) {
+			errorMessage += "PLease input ISBN Field \n";
+		}
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {
