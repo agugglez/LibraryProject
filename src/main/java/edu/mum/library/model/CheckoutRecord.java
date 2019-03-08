@@ -17,7 +17,7 @@ public class CheckoutRecord extends BaseEntity {
 
 	private List<CheckoutEntry> checkoutEntries;
 
-	public CheckoutRecord() {
+	CheckoutRecord() {
 		checkoutEntries = new ArrayList<>();
 	}
 
