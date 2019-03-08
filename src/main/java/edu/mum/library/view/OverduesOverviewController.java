@@ -29,43 +29,31 @@ import javafx.scene.control.cell.PropertyValueFactory;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class OverduesOverviewController extends BaseFxController {
 	@FXML
-	private TableView<OverdueDto> overduesTable;
-
-	@FXML
 	private TableColumn<OverdueDto, String> copyNumberColumn;
 	@FXML
 	private TableColumn<OverdueDto, LocalDate> dueDateColumn;
-	// @FXML
-	// private TableColumn<BookDto, Integer> availabilityColumn;
 	@FXML
 	private TableColumn<OverdueDto, String> memberIdColumn;
-
 	@FXML
 	private TableColumn<OverdueDto, Boolean> overdueColumn;
 
 	@FXML
-	private Label checkedoutCopiesField;
-
-	@FXML
-	private Label availableCopiesField;
-	@FXML
-	private Label titleField;
+	private TableView<OverdueDto> overduesTable;
 
 	@FXML
 	private TextField searchByIsbnField;
 
+	@FXML
+	private Label availableCopiesField;
+	@FXML
+	private Label checkedoutCopiesField;
+	@FXML
+	private Label titleField;
+
+	@Autowired
+	private BookDao bookDao;
 	@Autowired
 	private LibraryService libraryService;
-
-	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
-	 */
-	@FXML
-	private void initialize() {
-		configureColumnForTableView();
-
-	}
 
 	private void configureColumnForTableView() {
 
@@ -73,16 +61,12 @@ public class OverduesOverviewController extends BaseFxController {
 		dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 		memberIdColumn.setCellValueFactory(new PropertyValueFactory<>("memberId"));
 		overdueColumn.setCellValueFactory(new PropertyValueFactory<>("overdue"));
-		overdueColumn.setCellFactory(tc->new CheckBoxTableCell<>());
+		overdueColumn.setCellFactory(tc -> new CheckBoxTableCell<>());
 
 	}
 
-	@Autowired
-	private BookDao bookDao;
-
 	/**
-	 * Called when the user clicks the search button. Fills TableView with
-	 * entries
+	 * Called when the user clicks the search button. Fills TableView with entries
 	 */
 	@FXML
 	private void handleSearch() {
@@ -110,5 +94,15 @@ public class OverduesOverviewController extends BaseFxController {
 			fxViewManager.showError(this.getCurrentStage(), e.getMessage(), "Error Title", "Header Error");
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Initializes the controller class. This method is automatically called after
+	 * the fxml file has been loaded.
+	 */
+	@FXML
+	private void initialize() {
+		configureColumnForTableView();
+
 	}
 }

@@ -16,65 +16,48 @@ import edu.mum.library.model.Author;
 import edu.mum.library.model.Book;
 import edu.mum.library.service.LibraryService;
 import edu.mum.library.view.base.BaseFxModalController;
+import edu.mum.library.view.base.BaseLibraryFxModalEditController;
 import edu.mum.library.view.dto.BookDto;
+import edu.mum.library.view.util.LibraryUiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class BookEditDialogController extends LibraryFxModalEditController<BookDto> {
+public class BookEditDialogController extends BaseLibraryFxModalEditController<BookDto> {
 
-	@Override
-	public void morePost() {
-		if (this.entityDto != null) {
-			copiesField.setDisable(true);
-			isbnField.setDisable(true);
-		}
-		updateAuthorInformationToUi();
-		this.registerRequired("ISBN", isbnField::getText);
-		this.registerRequired("Title", titleField::getText);
-		this.registerRequired("availability", availabilityField::getText);
-		this.registerRequired("Copies", copiesField::getText);
-	}
+	/**
+	 * Author list to save the newly added author list
+	 */
+	private List<Author> authorAddedList = new ArrayList<>();
 
-	@FXML
-	private TextField isbnField;
-	@FXML
-	private TextField titleField;
-	@FXML
-	private TextField availabilityField;
-	@FXML
-	private TextField copiesField;
 	@FXML
 	@NoAutoSettingGetting
 	private TextArea authors;
+	@FXML
+	private TextField availabilityField;
+	@Autowired
+	private BookDao bookDao;
+	@FXML
+	private TextField copiesField;
+	@FXML
+	private TextField isbnField;
 
 	@Autowired
 	private LibraryService libraryService;
 	@Autowired
-	private BookDao bookDao;
-	@Autowired
 	private LibraryUiManager libraryUiManager;
-	private List<Author> authorList = new ArrayList<>();
-
-	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
-	 */
 	@FXML
-	private void initialize() {
+	private TextField titleField;
 
-	}
-
-	void updateAuthorInformationToUi() {
-		List<Author> list = new ArrayList<>();
-		if (this.entityDto != null) {
-			list.addAll(bookDao.readById(this.entityDto.getIsbn()).getBookAuthors());
+	@FXML
+	public void addAuthor() {
+		BaseFxModalController result = libraryUiManager.showAuthorEditDialogDialog();
+		if (result.isOkClicked()) {
+			authorAddedList.add((Author) result.getReturnResult());
+			updateAuthorInformationToUi();
 		}
-		list.addAll(this.authorList);
-		String authorListText = list.stream().map(Object::toString).collect(Collectors.joining("\n"));
-		authors.setText(authorListText);
 	}
 
 	/**
@@ -91,12 +74,12 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 					book.setIsbn(isbnField.getText());
 					book.setTitle(titleField.getText());
 					book.setAvailability(Integer.parseInt(availabilityField.getText()));
-					book.getBookAuthors().addAll(authorList);
+					book.addAuthors(authorAddedList);
 					bookDao.save(book);
 
 				} else {
 					Book book = new Book(isbnField.getText(), titleField.getText(),
-							Integer.parseInt(availabilityField.getText()), new ArrayList<>(authorList));
+							Integer.parseInt(availabilityField.getText()), new ArrayList<>(authorAddedList));
 
 					libraryService.addBook(book, Integer.parseInt(copiesField.getText()));
 
@@ -105,16 +88,15 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 				this.getCurrentStage().close();
 			}
 		} catch (LibraryException ex) {
-			this.fxViewManager.showError(getCurrentStage(), ex.getMessage(), "Book Management",
-					"Please correct Error");
+			this.fxViewManager.showError(getCurrentStage(), ex.getMessage(), "Book Management", "Please correct Error");
 		}
 	}
 
 	@Override
 	protected String moreCheck() {
 		StringBuilder sb = new StringBuilder();
-		// try to parse the postal code into an int.
 		try {
+			// try to parse the postal code into an int.
 			int available = Integer.parseInt(availabilityField.getText());
 			if (available <= 0) {
 				sb.append("No valid vailability (must be greater than 0)!\n");
@@ -123,6 +105,7 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 			sb.append("No valid vailability (must be an integer)!\n");
 		}
 		try {
+			// Check the copies and it should not be less than zero
 			int copies = Integer.parseInt(copiesField.getText());
 			if (copies < 0) {
 				sb.append("No valid copies (must be greater than or equal to 0)!\n");
@@ -130,20 +113,36 @@ public class BookEditDialogController extends LibraryFxModalEditController<BookD
 		} catch (NumberFormatException e) {
 			sb.append("No valid copies (must be an integer)!\n");
 		}
+		// If it is new book mode
 		if (this.entityDto == null) {
-			if (authorList.size() == 0) {
+			// Check whether author is added or not, author is a required field for a book
+			if (authorAddedList.size() == 0) {
 				sb.append("Please add author for the book!\n");
 			}
 		}
 		return sb.toString();
 	}
 
-	@FXML
-	public void addAuthor() {
-		BaseFxModalController result = libraryUiManager.showAuthorEditDialogDialog();
-		if (result.isOkClicked()) {
-			authorList.add((Author) result.getReturnResult());
-			updateAuthorInformationToUi();
+	@Override
+	public void postInitInChild() {
+		if (this.entityDto != null) {
+			copiesField.setDisable(true);
+			isbnField.setDisable(true);
 		}
+		updateAuthorInformationToUi();
+		this.registerRequired("ISBN", isbnField::getText);
+		this.registerRequired("Title", titleField::getText);
+		this.registerRequired("availability", availabilityField::getText);
+		this.registerRequired("Copies", copiesField::getText);
+	}
+
+	void updateAuthorInformationToUi() {
+		List<Author> list = new ArrayList<>();
+		if (this.entityDto != null) {
+			list.addAll(bookDao.readById(this.entityDto.getIsbn()).getBookAuthors());
+		}
+		list.addAll(this.authorAddedList);
+		String authorListText = list.stream().map(Object::toString).collect(Collectors.joining("\n"));
+		authors.setText(authorListText);
 	}
 }

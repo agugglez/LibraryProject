@@ -4,34 +4,14 @@ import edu.mum.library.model.base.BaseEntity;
 
 public class Address extends BaseEntity {
 
-	@Override
-	public String toString() {
-		return "street:" + street + ", city:" + city + ", state:" + state + ", zipcode:" + zipcode + "";
-	}
-
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -7402787440134026375L;
-	private String street;
+
 	private String city;
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
-
 	private String state;
+	private String street;
 	private String zipcode;
 
 	public Address(String street, String city, String state, String zipcode) {
@@ -42,10 +22,6 @@ public class Address extends BaseEntity {
 		this.zipcode = zipcode;
 	}
 
-	public String getStreet() {
-		return street;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -54,8 +30,32 @@ public class Address extends BaseEntity {
 		return state;
 	}
 
+	public String getStreet() {
+		return street;
+	}
 	public String getZipcode() {
 		return zipcode;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	@Override
+	public String toString() {
+		return "street:" + street + ", city:" + city + ", state:" + state + ", zipcode:" + zipcode + "";
 	}
 
 }

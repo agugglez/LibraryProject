@@ -13,6 +13,20 @@ public class OverdueDto {
 
 	private StringProperty copyNumber;
 
+	private ObjectProperty<LocalDate> dueDate;
+
+	private StringProperty memberId;
+
+	private BooleanProperty overdue;
+
+	public OverdueDto(String copyNumber, LocalDate dueDate, String memberId, Boolean isOverdue) {
+		super();
+		this.copyNumber = new SimpleStringProperty(copyNumber);
+		this.dueDate = new SimpleObjectProperty<>(dueDate);
+		this.memberId = new SimpleStringProperty(memberId);
+		this.overdue = new SimpleBooleanProperty(isOverdue);
+	}
+
 	public StringProperty copyNumberProperty() {
 		return copyNumber;
 	}
@@ -27,20 +41,6 @@ public class OverdueDto {
 
 	public BooleanProperty overdueProperty() {
 		return overdue;
-	}
-
-	private ObjectProperty<LocalDate> dueDate;
-
-	private StringProperty memberId;
-
-	private BooleanProperty overdue;
-
-	public OverdueDto(String copyNumber, LocalDate dueDate, String memberId, Boolean isOverdue) {
-		super();
-		this.copyNumber = new SimpleStringProperty(copyNumber);
-		this.dueDate = new SimpleObjectProperty<>(dueDate);
-		this.memberId = new SimpleStringProperty(memberId);
-		this.overdue = new SimpleBooleanProperty(isOverdue);
 	}
 
 }

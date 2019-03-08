@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.view.base.BaseFxController;
 import edu.mum.library.view.dto.MemberDto;
+import edu.mum.library.view.util.LibraryUiManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

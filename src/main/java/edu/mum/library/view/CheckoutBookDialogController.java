@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import edu.mum.library.common.LibraryException;
 import edu.mum.library.service.LibraryService;
 import edu.mum.library.view.base.BaseFxModalController;
+import edu.mum.library.view.util.LibraryUiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -15,35 +16,18 @@ import javafx.scene.control.TextField;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CheckoutBookDialogController extends BaseFxModalController {
 
+	@FXML
+	private TextField isbnField;
+	@FXML
+	private TextField memberIdField;
+
+	@Autowired
+	private LibraryService libraryService;
 	@Autowired
 	private LibraryUiManager libraryUiManager;
 
-	@Override
-	public void postInit() {
-		this.registerRequired("Member Id", memberIdField::getText);
-		this.registerRequired("ISBN", isbnField::getText);
-	}
-
-	@FXML
-	private TextField memberIdField;
-	@FXML
-	private TextField isbnField;
-
-	private boolean okClicked = false;
-	@Autowired
-	private LibraryService libraryService;
-
 	/**
-	 * Returns true if the user clicked OK, false otherwise.
-	 *
-	 * @return
-	 */
-	public boolean isOkClicked() {
-		return okClicked;
-	}
-
-	/**
-	 * Called when the user clicks ok.
+	 * Called when the user clicks checkout.
 	 */
 	@FXML
 	private void handleOk() {
@@ -60,5 +44,11 @@ public class CheckoutBookDialogController extends BaseFxModalController {
 
 			return;
 		}
+	}
+
+	@Override
+	public void postInit() {
+		this.registerRequired("Member Id", memberIdField::getText);
+		this.registerRequired("ISBN", isbnField::getText);
 	}
 }

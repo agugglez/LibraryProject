@@ -8,22 +8,10 @@ public class Staff extends BaseEntityWithPrimaryKey<String> {
 	 *
 	 */
 	private static final long serialVersionUID = 3685593797957016882L;
-	private String userId;
+	private AuthorizationLevel authorizationLevel;
 	private String password;
 
-	private AuthorizationLevel authorizationLevel;
-
-	public AuthorizationLevel getAuthorizationLevel() {
-		return authorizationLevel;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
+	private String userId;
 
 	public Staff(String userId, String password, AuthorizationLevel adminLevel) {
 		super();
@@ -32,8 +20,20 @@ public class Staff extends BaseEntityWithPrimaryKey<String> {
 		this.authorizationLevel = adminLevel;
 	}
 
+	public AuthorizationLevel getAuthorizationLevel() {
+		return authorizationLevel;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	@Override
 	public String getPrimaryKey() {
 		return getUserId();
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 }

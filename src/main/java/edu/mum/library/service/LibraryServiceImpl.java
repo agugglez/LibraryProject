@@ -71,7 +71,6 @@ public class LibraryServiceImpl implements LibraryService {
 			throw new LibraryException("Member Id not found: " + memberId);
 		}
 		return member.printCheckoutRecord();
-		// TODO Add fromat
 	}
 
 	@Override

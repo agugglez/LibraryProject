@@ -11,40 +11,31 @@ import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Address;
 import edu.mum.library.model.Member;
 import edu.mum.library.service.LibraryService;
+import edu.mum.library.view.base.BaseLibraryFxModalEditController;
 import edu.mum.library.view.dto.MemberDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class MemberEditDialogController extends LibraryFxModalEditController<MemberDto> {
-
-	@Override
-	protected void morePost() {
-		if (entityDto != null) {
-			memberIdField.setDisable(true);
-		}
-		this.registerRequired("Member Id", memberIdField::getText);
-		this.registerRequired("First Name", firstNameField::getText);
-		this.registerRequired("Last Name", lastNameField::getText);
-	}
+public class MemberEditDialogController extends BaseLibraryFxModalEditController<MemberDto> {
 
 	@FXML
-	private TextField memberIdField;
+	private TextField cityField;
 	@FXML
 	private TextField firstNameField;
 	@FXML
 	private TextField lastNameField;
 	@FXML
-	private TextField streetField;
+	private TextField memberIdField;
 	@FXML
-	private TextField zipcodeField;
-	@FXML
-	private TextField cityField;
+	private TextField phoneNumberField;
 	@FXML
 	private TextField stateField;
 	@FXML
-	private TextField phoneNumberField;
+	private TextField streetField;
+	@FXML
+	private TextField zipcodeField;
 
 	@Autowired
 	private LibraryService libraryService;
@@ -106,6 +97,16 @@ public class MemberEditDialogController extends LibraryFxModalEditController<Mem
 			}
 		}
 		return "";
+	}
+
+	@Override
+	protected void postInitInChild() {
+		if (entityDto != null) {
+			memberIdField.setDisable(true);
+		}
+		this.registerRequired("Member Id", memberIdField::getText);
+		this.registerRequired("First Name", firstNameField::getText);
+		this.registerRequired("Last Name", lastNameField::getText);
 	}
 
 }

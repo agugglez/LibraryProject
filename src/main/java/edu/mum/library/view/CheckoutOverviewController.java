@@ -23,38 +23,30 @@ import javafx.scene.control.cell.PropertyValueFactory;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CheckoutOverviewController extends BaseFxModalController {
 	@FXML
-	private TableView<CheckoutEntryDto> personTable;
-
-	@FXML
 	private TableColumn<CheckoutEntryDto, LocalDate> checkoutColumn;
+	@FXML
+	private TableColumn<CheckoutEntryDto, String> copyNumberColumn;
 	@FXML
 	private TableColumn<CheckoutEntryDto, LocalDate> dueColumn;
 	@FXML
-	private TableColumn<CheckoutEntryDto, String> copyNumberColumn;
+	private TableView<CheckoutEntryDto> personTable;
 
 	@Autowired
 	private MemberDao memberDao;
 
 	private String memberId;
 
-	List<CheckoutEntryDto> getAllMemberList() {
-		Member member = memberDao.readById(memberId);
-		return member.getCheckoutRecord().getCheckoutEntries().stream().map(m -> new CheckoutEntryDto(m))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public void postInit() {
-		this.memberId = (String) UserObjectForView.getParamFromStage(this.getCurrentStage());
-		personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
-		configureColumnForTableView();
-	}
-
 	private void configureColumnForTableView() {
 
 		checkoutColumn.setCellValueFactory(new PropertyValueFactory<>("checkoutDate"));
 		dueColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 		copyNumberColumn.setCellValueFactory(new PropertyValueFactory<>("copyNumber"));
+	}
+
+	List<CheckoutEntryDto> getAllMemberList() {
+		Member member = memberDao.readById(memberId);
+		return member.getCheckoutRecord().getCheckoutEntries().stream().map(m -> new CheckoutEntryDto(m))
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -65,5 +57,12 @@ public class CheckoutOverviewController extends BaseFxModalController {
 	private void handleNewPerson() {
 
 		onWindowClose();
+	}
+
+	@Override
+	public void postInit() {
+		this.memberId = (String) UserObjectForView.getParamFromStage(this.getCurrentStage());
+		personTable.setItems(FXCollections.observableArrayList(getAllMemberList()));
+		configureColumnForTableView();
 	}
 }

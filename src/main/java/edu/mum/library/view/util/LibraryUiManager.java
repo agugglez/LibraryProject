@@ -1,8 +1,10 @@
-package edu.mum.library.view;
+package edu.mum.library.view.util;
 
 import org.springframework.stereotype.Component;
 
+import edu.mum.library.view.UserObjectForView;
 import edu.mum.library.view.base.BaseFxModalController;
+import edu.mum.library.view.base.BaseUIController;
 import edu.mum.library.view.dto.BookDto;
 import edu.mum.library.view.dto.MemberDto;
 import javafx.scene.Scene;
@@ -11,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 @Component
-public class LibraryUiManager extends BaseUI {
+public class LibraryUiManager extends BaseUIController {
 
 	public BaseFxModalController showOverduesDialog() {
 

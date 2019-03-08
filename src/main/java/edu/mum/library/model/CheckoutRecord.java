@@ -18,7 +18,6 @@ public class CheckoutRecord extends BaseEntity {
 	private List<CheckoutEntry> checkoutEntries;
 
 	public CheckoutRecord() {
-		super();
 		checkoutEntries = new ArrayList<>();
 	}
 
@@ -35,10 +34,8 @@ public class CheckoutRecord extends BaseEntity {
 	}
 
 	public String printCheckoutRecord() {
-		StringBuilder sb = new StringBuilder("Checkout Date" + "\t" + "Due Date" + "\t" + "ISBN" + "\t" + "Title" + "");
-		// System.out.println(header);
+		StringBuilder sb = new StringBuilder("Checkout Date\tDue Date\tISBN\tTitle");
 		sb.append(checkoutEntries.stream().map(e -> e.toString()).collect(Collectors.joining("\n")));
-		// System.out.println(sb.toString());
 		return sb.toString();
 	}
 

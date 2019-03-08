@@ -9,6 +9,7 @@ import edu.mum.library.mock.CreateMockData;
 import edu.mum.library.model.AuthorizationLevel;
 import edu.mum.library.service.SessionManager;
 import edu.mum.library.view.base.BaseFxController;
+import edu.mum.library.view.util.LibraryUiManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
@@ -23,6 +24,11 @@ public class RootController extends BaseFxController {
 	private Menu adminMenu;
 	@FXML
 	private Menu librarianMenu;
+
+	@Autowired
+	private SessionManager sessionManager;
+	@Autowired
+	private LibraryUiManager libraryUiManager;
 
 	@FXML
 	void logout() {
@@ -43,19 +49,6 @@ public class RootController extends BaseFxController {
 		Platform.exit();
 	}
 
-	@Autowired
-	CreateMockData createMockData;
-	@FXML
-	void createMockData() {
-		createMockData.create();
-	}
-
-	@Autowired
-	private SessionManager sessionManager;
-
-	@Autowired
-	private LibraryUiManager libraryUiManager;
-
 	public void menuInit() {
 		AuthorizationLevel authorizationLevel = sessionManager.getLoginUser().getAuthorizationLevel();
 		if (authorizationLevel == AuthorizationLevel.ADMIN) {
@@ -67,44 +60,36 @@ public class RootController extends BaseFxController {
 
 	public void showMemberUi() {
 		AnchorPane personOverview = this.application.importLayout("/edu/mum/library/view/MemberOverview.fxml");
-
-		// Set person overview into the center of root layout.
 		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(personOverview);
 	}
 
 	public void showBookUi() {
 		AnchorPane view = this.application.importLayout("/edu/mum/library/view/BookOverview.fxml");
-
-		// Set person overview into the center of root layout.
 		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
 
 	public void showCheckoutUi() {
 		AnchorPane view = this.application.importLayout("/edu/mum/library/view/CheckoutDialog.fxml");
-
-		// Set person overview into the center of root layout.
 		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
 
 	public void showPrintCheckoutRecordUi() {
-		// ((BorderPane)
-		// this.getCurrentStage().getScene().getRoot()).setCenter(null);
 		//
-		// libraryUiManager.showPrintDialogDialog();
 		AnchorPane view = this.application.importLayout("/edu/mum/library/view/PrintCheckoutDialog.fxml");
-
-		// Set person overview into the center of root layout.
 		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 	}
 
 	public void showOverduesUi() {
-		// ((BorderPane)
-		// this.getCurrentStage().getScene().getRoot()).setCenter(null);
-		// libraryUiManager.showOverduesDialog();
 		AnchorPane view = this.application.importLayout("/edu/mum/library/view/OverduesOverview.fxml");
-
-		// Set person overview into the center of root layout.
 		((BorderPane) this.getCurrentStage().getScene().getRoot()).setCenter(view);
 
+	}
+
+	@Autowired
+	CreateMockData createMockData;
+
+	@FXML
+	void createMockData() {
+		createMockData.create();
 	}
 }

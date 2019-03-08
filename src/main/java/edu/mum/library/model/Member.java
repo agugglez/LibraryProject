@@ -23,11 +23,6 @@ public class Member extends Person implements IPrimaryKeyGetter<String> {
 		return checkoutRecord.checkoutBook(this, bc);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return PrimaryKeyHelper.equals(this, obj);
-	}
-
 	public CheckoutRecord getCheckoutRecord() {
 		return checkoutRecord;
 	}
@@ -37,17 +32,21 @@ public class Member extends Person implements IPrimaryKeyGetter<String> {
 	}
 
 	@Override
+	public String getPrimaryKey() {
+		return this.getMemberId();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return PrimaryKeyHelper.equals(this, obj);
+	}
+
+	@Override
 	public int hashCode() {
 		return PrimaryKeyHelper.hashCode(this);
 	}
 
 	public String printCheckoutRecord() {
 		return checkoutRecord.printCheckoutRecord();
-	}
-
-	@Override
-	public String getPrimaryKey() {
-		// TODO Auto-generated method stub
-		return this.getMemberId();
 	}
 }
