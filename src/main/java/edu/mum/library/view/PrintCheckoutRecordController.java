@@ -16,10 +16,6 @@ import javafx.scene.control.TextField;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class PrintCheckoutRecordController extends BaseFxModalController {
 
-	@Override
-	public void postInit() {
-	}
-
 	@FXML
 	private TextField memberIdField;
 
@@ -44,6 +40,7 @@ public class PrintCheckoutRecordController extends BaseFxModalController {
 			}
 		}
 	}
+
 	@FXML
 	void clearText() {
 		consoleText.setText("");

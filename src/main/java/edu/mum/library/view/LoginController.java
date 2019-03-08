@@ -15,15 +15,20 @@ import javafx.scene.control.TextField;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class LoginController extends BaseFxModalController {
 
-	@FXML
-	private TextField username;
-
-	@FXML
-	private PasswordField password;
+	private boolean isLogin = false;
 
 	@Autowired
 	private LoginService loginService;
-	private boolean isLogin = false;
+
+	@FXML
+	private PasswordField password;
+	@FXML
+	private TextField username;
+
+	@Override
+	public boolean isOkClicked() {
+		return isLogin;
+	}
 
 	public void login() {
 		// empty check
@@ -35,10 +40,5 @@ public class LoginController extends BaseFxModalController {
 			fxViewManager.showError(this.getCurrentStage(), "username and/or password incorrect",
 					"Error", "Login Error");
 		}
-	}
-
-	@Override
-	public boolean isOkClicked() {
-		return isLogin;
 	}
 }

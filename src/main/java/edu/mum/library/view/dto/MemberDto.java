@@ -25,18 +25,4 @@ public class MemberDto extends PersonDto<Member> {
 		this.memberId.set(memberId);
 	}
 
-	// public Member toMember() {
-	// Member member = new Member(this.getMemberId(), this.getFirstName(),
-	// this.getLastName(), this.getPhoneNumber());
-	// try {
-	// BeanUtils.copyProperties(member, this);
-	// } catch (IllegalAccessException e) {
-	// e.printStackTrace();
-	// } catch (InvocationTargetException e) {
-	// e.printStackTrace();
-	// }
-	// member.setPersonAddress(new Address(this.getStreet(), this.getCity(),
-	// this.getState(), this.getZipcode()));
-	// return member;
-	// }
 }

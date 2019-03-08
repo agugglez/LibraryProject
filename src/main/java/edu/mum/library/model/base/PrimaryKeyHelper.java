@@ -19,7 +19,7 @@ public class PrimaryKeyHelper {
 			return false;
 		if (t.getClass() != obj.getClass())
 			return false;
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings("unchecked")
 		IPrimaryKeyGetter<T> other = (IPrimaryKeyGetter<T>) obj;
 		if (t.getPrimaryKey() == null) {
 			if (other.getPrimaryKey() != null)

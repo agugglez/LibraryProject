@@ -11,56 +11,55 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 
 	private CheckoutEntry checkoutEntry;
 
-	public CheckoutEntry getCheckoutEntry() {
-		return checkoutEntry;
-	}
+	private String copyNumber;
 
-	public void setCheckoutEntry(CheckoutEntry checkoutEntry) {
-		this.checkoutEntry = checkoutEntry;
+	private boolean isAvailable;
+
+	private Book originalBook;
+	
+	BookCopy(Book originalBook, String copyNumber, Boolean isAvailable) {
+		this.originalBook = originalBook;
+		this.copyNumber = copyNumber;
+		this.isAvailable = isAvailable;
 	}
 
 	public void checkout(CheckoutEntry ce) {
 		this.setCheckoutEntry(ce);
 		this.setAvailable(false);
 	}
-	public void returnBook()
-	{
-		this.setCheckoutEntry(null);
-		this.setAvailable(true);
-	}
-
-	private String copyNumber;
-
-	private boolean isAvailable;
-	private Book originalBook;
-
-	// package
-	BookCopy(Book originalBook, String copyNumber, Boolean isAvailable) {
-		super();
-		this.originalBook = originalBook;
-		this.copyNumber = copyNumber;
-		this.isAvailable = isAvailable;
-	}
 
 	public Book getBook() {
 		return originalBook;
+	}
+	public CheckoutEntry getCheckoutEntry() {
+		return checkoutEntry;
 	}
 
 	public String getCopyNumber() {
 		return copyNumber;
 	}
 
+	@Override
+	public String getPrimaryKey() {
+		return getCopyNumber();
+	}
+
 	public boolean isAvailable() {
 		return isAvailable;
+	}
+
+	public void returnBook()
+	{
+		this.setCheckoutEntry(null);
+		this.setAvailable(true);
 	}
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 
-	@Override
-	public String getPrimaryKey() {
-		return getCopyNumber();
+	public void setCheckoutEntry(CheckoutEntry checkoutEntry) {
+		this.checkoutEntry = checkoutEntry;
 	}
 
 }

@@ -57,5 +57,4 @@ public abstract class Person extends BaseEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
-
 }

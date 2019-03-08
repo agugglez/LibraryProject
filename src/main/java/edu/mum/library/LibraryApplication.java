@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import edu.mum.library.view.LibraryUiManager;
 import edu.mum.library.view.RootController;
 import edu.mum.library.view.UserObjectForView;
 import edu.mum.library.view.base.BaseFxController;
+import edu.mum.library.view.util.LibraryUiManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -69,8 +69,6 @@ public class LibraryApplication extends Application {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(LibraryApplication.class);
 		context = builder.run(getParameters().getRaw().toArray(new String[0]));
 		context.getBean(LibraryApplication.class).context = context;
-		// context.getBeanFactory().registerSingleton("libraryApplication",
-		// this);
 	}
 
 	@Override
@@ -86,11 +84,7 @@ public class LibraryApplication extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);
 		primaryStage.show();
-		// AnchorPane personOverview =
-		// importLayout("/edu/mum/library/view/PersonOverview.fxml");
 
-		// Set person overview into the center of root layout.
-		// rootLayout.setCenter(personOverview);
 		LibraryUiManager uiManager = context.getBean(LibraryUiManager.class);
 		if (!uiManager.showLoginDialog()) {
 			Platform.exit();
