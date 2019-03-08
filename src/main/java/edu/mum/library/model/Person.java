@@ -14,7 +14,7 @@ public abstract class Person extends BaseEntity {
 
 	protected String phoneNumber;
 
-	public Person(String firstName, String lastName, String phoneNumber) {
+	protected Person(String firstName, String lastName, String phoneNumber) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
