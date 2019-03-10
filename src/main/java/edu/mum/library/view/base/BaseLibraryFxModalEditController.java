@@ -10,7 +10,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import edu.mum.library.common.NoAutoSettingGetting;
-import edu.mum.library.view.UserObjectForView;
+import edu.mum.library.view.util.UserObjectForView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;

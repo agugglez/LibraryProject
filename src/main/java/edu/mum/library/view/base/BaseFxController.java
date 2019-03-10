@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import edu.mum.library.view.UserObjectForView;
 import edu.mum.library.view.util.FxViewManager;
+import edu.mum.library.view.util.UserObjectForView;
 import javafx.stage.Stage;
 
 public abstract class BaseFxController extends BaseUIController {

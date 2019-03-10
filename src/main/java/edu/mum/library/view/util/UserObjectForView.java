@@ -1,4 +1,4 @@
-package edu.mum.library.view;
+package edu.mum.library.view.util;
 
 import javafx.stage.Stage;
 
