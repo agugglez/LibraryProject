@@ -7,9 +7,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import edu.mum.library.view.RootController;
-import edu.mum.library.view.UserObjectForView;
 import edu.mum.library.view.base.BaseFxController;
 import edu.mum.library.view.util.LibraryUiManager;
+import edu.mum.library.view.util.UserObjectForView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

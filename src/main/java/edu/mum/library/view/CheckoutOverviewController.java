@@ -13,6 +13,7 @@ import edu.mum.library.dataaccess.MemberDao;
 import edu.mum.library.model.Member;
 import edu.mum.library.view.base.BaseFxModalController;
 import edu.mum.library.view.dto.CheckoutEntryDto;
+import edu.mum.library.view.util.UserObjectForView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
