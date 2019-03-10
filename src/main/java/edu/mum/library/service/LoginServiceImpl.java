@@ -1,7 +1,5 @@
 package edu.mum.library.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +14,13 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public boolean login(String requestId, String password) {
-		Optional<Staff> loginUser = StaffTableMock.getStaffList().stream()
-				.filter(s -> s.getUserId().equalsIgnoreCase(requestId) && s.getPassword().equals(password)).findAny();
-		if (loginUser.isPresent()) {
-			sessionManager.setLoginUser(loginUser.get());
+		for (Staff s : StaffTableMock.getStaffList()) {
+			if (s.getUserId().equalsIgnoreCase(requestId) && s.getPassword().equals(password)) {
+				sessionManager.setLoginUser(s);
+				return true;
+			}
 		}
-		return loginUser.isPresent();
+		return false;
 	}
 
 }

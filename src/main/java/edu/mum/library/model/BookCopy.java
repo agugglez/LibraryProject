@@ -1,5 +1,7 @@
 package edu.mum.library.model;
 
+import java.time.LocalDate;
+
 import edu.mum.library.model.base.BaseEntityWithPrimaryKey;
 
 public class BookCopy extends BaseEntityWithPrimaryKey<String> {
@@ -16,7 +18,7 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 	private boolean isAvailable;
 
 	private Book originalBook;
-	
+
 	BookCopy(Book originalBook, String copyNumber, Boolean isAvailable) {
 		this.originalBook = originalBook;
 		this.copyNumber = copyNumber;
@@ -61,5 +63,4 @@ public class BookCopy extends BaseEntityWithPrimaryKey<String> {
 	public void setCheckoutEntry(CheckoutEntry checkoutEntry) {
 		this.checkoutEntry = checkoutEntry;
 	}
-
 }

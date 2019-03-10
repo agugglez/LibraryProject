@@ -23,10 +23,14 @@ public class CheckoutRecord extends BaseEntity {
 
 	public CheckoutEntry checkoutBook(Member member, BookCopy bc) {
 		LocalDate checkoutDate = LocalDate.now();
-		LocalDate dueDate = LocalDate.now().plusDays(bc.getBook().getAvailability());
+		LocalDate dueDate = getCheckoutDueDate(bc);
 		CheckoutEntry ce = new CheckoutEntry(checkoutDate, dueDate, member, bc);
 		checkoutEntries.add(ce);
 		return ce;
+	}
+
+	private LocalDate getCheckoutDueDate(BookCopy bc) {
+		return LocalDate.now().plusDays(bc.getBook().getAvailability());
 	}
 
 	public List<CheckoutEntry> getCheckoutEntries() {

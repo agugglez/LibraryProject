@@ -30,7 +30,7 @@ public class CheckoutBookDialogController extends BaseFxModalController {
 	 * Called when the user clicks checkout.
 	 */
 	@FXML
-	private void handleOk() {
+	private void checkout() {
 		if (isInputValid()) {
 
 			try {
